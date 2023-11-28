@@ -1,0 +1,52 @@
+#+title: GENE
+
+* WARNING
+All of that is on my head. (I'm sorry) I didn't implement almost nothing yet.
+
+#+begin_quote
+Cross-Universe Package Manager that has the ability to reconcile anything
+#+end_quote
+
+* Manifest
+GENE is a plan as a generic package manager.
+
+** Configuration
+GENE is configured with =gene.toml= on your project root.
+
+#+begin_src toml
+[rust.c]
+backend = "vcpkg"
+interface = "cbindgen"
+deps = [
+     "glfw",
+]
+#+end_src
+
+** Language Package Managers
+
+
+# * Manifest
+# Package management is too specific. You have at least a dozen package managers for your system to be /usable/.
+# Maybe you don't know the name of your package or It fails to build etc.
+
+
+# #+begin_export ascii
+# Naive list of package stereotypes:
+# - Language  Package  Manager (LPM)
+# - System    Package  Manager (SPM)
+# - Project Dependency Manager (PDM)
+# #+end_export
+
+# GENE targets LPM issues:
+
+# # ** System Package Managers
+
+# # NOTE: This will be another concept (unix philosophy)
+
+# # #+begin_quote
+# # apt, pacman, yum, nix, homebrew, choco, scoop, rpm, zypper…
+# # #+end_quote
+
+# # Although they are good at how they're installing packages (especially some of them) It doesn't fix the issue of stardalization.
+
+# # With GENE, you will have a standard way of installing package in an unambiguous way.
