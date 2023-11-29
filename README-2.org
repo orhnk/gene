@@ -1,0 +1,69 @@
+#+title: GENE
+
+#+begin_quote
+GENEric Package Manager - Managing packages but abstracted
+#+end_quote
+
+* Abstract
+GENE is a tool for installing packages in a cross platform and dependency-free way.
+GENE is not a package manager but a "package manager manager" It uses your
+system's capabilities instead of introducing a new one.
+
+
+Using GENE is simple. Every machine has It's unique configuration for package installation
+and GENE uses these tools and install the package you want.
+
+#+begin_src toml
+# ~/.config/gene/gene.toml - global configuration i.e the defaults
+[system]
+backend = "apt" # pacman, yum, zypper…
+#+end_src
+
+# This feature is just optional. There are tools that are far more better than gene on doing this.
+# deps = [
+#   "rust"
+#   "neovim"
+#   "emacs"
+# ]
+
+#+begin_src toml
+# My Project Root
+[system]
+deps = [
+  "libgl",
+  "browsh",
+]
+#+end_src
+
+#+begin_src shell
+gene # reads gene.toml and sets everything up
+#+end_src
+
+Thanks to the declarative system of GENE, uninstalling packages are also simple
+
+GENE comes with simple & solid features out of the box. But there is far more potential.
+Thanks to the GENE's plugin system, you can enhance GENE's capabilities in as you like.
+
+#+begin_src toml
+# ~/.config/gene/gene.toml
+[system]
+backend = [
+  "apt",
+  "pacman",
+  "yum",
+  "zypper",
+]
+plugins = [
+  "bind-lang",
+]
+#+end_src
+
+With this plugin, now you have ability to install and bind libraries according to your needs.
+So you can install a C library using canon, then will be able to use it in rust thanks to
+=bind-lang='s =cbindgen= backend.
+
+
+* Standardized
+Have you ever found yourself searching "how the install X package/library for your distro"?
+If so, GENE is a solution for this problem. GENE Package Registry contains *only one*
+name for a package. Even if your system uses another name for it. Here is an example:
