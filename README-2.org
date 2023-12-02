@@ -53,8 +53,14 @@ backend = [
   "yum",
   "zypper",
 ]
+
 plugins = [
   "bind-lang",
+]
+
+[plug.bind-lang.rust]
+python.pip.deps = [
+  "opencv-python"
 ]
 #+end_src
 
@@ -67,3 +73,14 @@ So you can install a C library using canon, then will be able to use it in rust 
 Have you ever found yourself searching "how the install X package/library for your distro"?
 If so, GENE is a solution for this problem. GENE Package Registry contains *only one*
 name for a package. Even if your system uses another name for it. Here is an example:
+
+* Plugin System
+#+begin_src toml
+plugins = [
+  "encrypt"
+]
+
+[plug.foo]
+bar = "baz"
+some.another = ""
+#+end_src
