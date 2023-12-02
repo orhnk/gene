@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="LeetcodeEditor">
+    <option name="projectConfig">
+      <map>
+        <entry key="/tmp/leetcode/editor/cn/[2661]找出叠涂元素.java">
+          <value>
+            <LeetcodeEditor>
+              <option name="contentPath" value="/tmp/leetcode/editor/cn/doc/content/[2661]找出叠涂元素.md" />
+              <option name="frontendQuestionId" value="leetcode.cn2661" />
+              <option name="host" value="leetcode.cn" />
+              <option name="path" value="/tmp/leetcode/editor/cn/[2661]找出叠涂元素.java" />
+              <option name="titleSlug" value="first-completely-painted-row-or-column" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
