@@ -1,21 +1,15 @@
 [workspace]
-members = [
-	"config",
-	"core",
-	"modules",
-]
+members = ["config", "core", "plug", "pmm"]
 
-default-members = [
-	"core",
-]
+default-members = ["core"]
 
 resolver = "2"
 
-[workspace.package]
-edition    = "2021"
-keywords   = [ "package-manager" ]
-license    = "MIT"
-homepage   = "https://github.com/utfeight/gene"
-repository = "https://github.com/utfeight/gene"
-version    = "0.1.0"
-authors    = [ "utfeight <utfeightt@gmail.com>" ]
+ [workspace.package]
+ edition = "2021"
+ keywords = ["package-manager"]
+ license = "MIT"
+ homepage = "https://github.com/utfeight/gene"
+ repository = "https://github.com/utfeight/gene"
+ version = "0.1.0"
+ authors = ["utfeight <utfeightt@gmail.com>"]

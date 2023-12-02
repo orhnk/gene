@@ -11,5 +11,9 @@ name = "core"
 version = "0.1.0"
 
 [[package]]
-name = "modules"
+name = "plug"
+version = "0.1.0"
+
+[[package]]
+name = "pmm"
 version = "0.1.0"
