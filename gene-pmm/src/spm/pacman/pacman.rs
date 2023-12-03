@@ -296,46 +296,93 @@
 //! ### `pacman -Syu gpm`
 //! Update package list, upgrade all packages, and then install gpm if it wasn’t already installed.
 
-
-
+use crate::gene::GeneArgs;
+use crate::pm::PackageManager;
 use std::str::FromStr;
 
 #[derive(Debug, Clone, Copy, Default)]
 pub struct PacmanOpts {
-	sync: bool,
-	install: bool,
-	remove: bool,
-	update: bool,
-	upgrade: bool,
+    /// Sync packages
+    pub sync: bool,
+
+    /// Install packages
+    pub install: bool,
+
+    /// Remove packages
+    pub remove: bool,
+
+    /// Update packages
+    pub update: bool,
+
+    /// Upgrade packages
+    pub upgrade: bool,
 }
 
 impl FromStr for PacmanOpts {
-	type Err = String;
+    type Err = String;
 
-	fn from_str(s: &str) -> Result<Self, Self::Err> {
-		let mut opts = PacmanOpts::default();
-		for c in s.chars() {
-			match c.to_ascii_lowercase() { // We're only working with ASCII characters here (-S, -i, -r, -u, -U)
-				'S' => opts.sync = true,
-				'i' => opts.install = true,
-				'r' => opts.remove = true,
-				'u' => opts.update = true,
-				'U' => opts.upgrade = true,
-				_ => return Err(format!("Invalid option: {}", c)),
-			}
-		}
-		Ok(opts)
-	}
+    /// Parse a string of options into PacmanOpts
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        let mut chars = s.chars();
+
+        if s.is_empty() {
+            return Err("No options provided".to_string());
+        }
+        if s.starts_with('-') {
+            chars.next();
+            println!("{:?}", chars)
+        } // remove leading '-' if present
+
+        let mut opts = PacmanOpts::default();
+        for c in chars {
+            match c.to_ascii_lowercase() {
+                // We're only working with ASCII characters here (-S, -i, -r, -u, -U)
+                's' => opts.sync = true,
+                'i' => opts.install = true,
+                'r' => opts.remove = true,
+                'u' => opts.update = true,
+                'U' => opts.upgrade = true,
+                _ => return Err(format!("Invalid option: {}", c)),
+            }
+        }
+        Ok(opts)
+    }
 }
 
+#[derive(Debug)]
 pub struct Pacman {
-	/// Options to get translated from gene representation then passed to pacman
-	opts: PacmanOpts,
+    /// Options to get translated from gene representation then passed to pacman
+    opts: PacmanOpts,
 
-	/// Raw options to pass to pacman
-	raw_opts: String,
+    /// Raw options to pass to pacman
+    raw_opts: String,
 }
 
-pub fn pacman() {
-	println!("hello world");
+impl PackageManager for Pacman {
+    fn from_gene(args: &GeneArgs) -> Self {
+        let opts = PacmanOpts::from_str(&args.raw_args.join("")).unwrap_or_default();
+        let raw_opts = args.raw_args.join(" ");
+        Self { opts, raw_opts }
+    }
+
+    fn compile(&self) -> String {
+        let mut cmd = String::new();
+        if self.opts.sync {
+            cmd.push_str("-S ");
+        }
+        if self.opts.install {
+            cmd.push_str("-i ");
+        }
+        if self.opts.remove {
+            cmd.push_str("-r ");
+        }
+        if self.opts.update {
+            cmd.push_str("-u ");
+        }
+        if self.opts.upgrade {
+            cmd.push_str("-U ");
+        }
+        cmd.push_str(&self.raw_opts);
+        cmd
+    }
 }
