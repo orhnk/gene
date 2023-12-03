@@ -1,6 +1,6 @@
-use crate::gene::GeneArgs;
+use gene_utils::args::GeneArgs;
 
-pub trait PackageManager<'a>: From<&'a GeneArgs> {
+pub trait PackageManager<'a>: TryFrom<&'a GeneArgs> {
 	/// Convert Middle Representation (Self) to String
 	fn compile(&'a self) -> String;
 }

@@ -296,9 +296,11 @@
 //! ### `pacman -Syu gpm`
 //! Update package list, upgrade all packages, and then install gpm if it wasn’t already installed.
 
-use crate::gene::GeneArgs;
+use gene_utils::args::GeneArgs;
 use crate::pm::PackageManager;
 use std::str::FromStr;
+use gene_proc::Name;
+use crate::error::ConfigError;
 
 #[derive(Debug, Clone, Copy, Default)]
 pub struct PacmanOpts {
@@ -318,7 +320,7 @@ pub struct PacmanOpts {
 	pub upgrade: bool,
 }
 
-#[derive(Debug)]
+#[derive(Debug, Name)]
 pub struct Pacman {
 	/// Options to get translated from gene representation then passed to pacman
 	opts: PacmanOpts,
@@ -327,11 +329,25 @@ pub struct Pacman {
 	raw_opts: String,
 }
 
-impl From<&GeneArgs> for Pacman {
-	fn from(args: &GeneArgs) -> Self {
-		let opts = PacmanOpts::from_str(&args.raw_args.join("")).unwrap_or_default();
-		let raw_opts = args.raw_args.join(" ");
-		Self { opts, raw_opts }
+impl<'a> TryFrom<&'a GeneArgs> for Pacman {
+	type Error = ConfigError<'a>;
+
+	fn try_from(args: &'a GeneArgs) -> Result<Self, Self::Error> {
+		let mut opts = Pacman::new();
+
+		if args.backends.is_none() {
+			return Err(ConfigError::NoPackageManager);
+		}
+
+		// if the machine doesn't have pacman installed specifically
+		if !args.backends.as_ref().unwrap().contains(&Pacman::name()) {
+			return Err(ConfigError::InvalidPackageManager {
+				expected: Pacman::name(),
+				found: args.backends.as_ref().unwrap(),
+			});
+		}
+
+		Ok(opts)
 	}
 }
 
@@ -449,4 +465,14 @@ struct UpgradeOpts {
 	noscriptlet: bool,
 	print: bool,
 	print_format: String,
+}
+
+
+impl Pacman {
+	pub fn new() -> Self {
+		Self {
+			opts: PacmanOpts::default(),
+			raw_opts: String::new(),
+		}
+	}
 }
