@@ -334,3 +334,119 @@ impl From<&GeneArgs> for Pacman {
 		Self { opts, raw_opts }
 	}
 }
+
+impl PackageManager<'_> for Pacman {
+	fn compile(&self) -> String {
+		let mut cmd = String::new();
+		if self.opts.sync {
+			cmd.push_str("-S ");
+		}
+		if self.opts.install {
+			cmd.push_str("-S ");
+		}
+		if self.opts.remove {
+			cmd.push_str("-R ");
+		}
+		if self.opts.update {
+			cmd.push_str("-S ");
+		}
+		if self.opts.upgrade {
+			cmd.push_str("-U ");
+		}
+		cmd.push_str(&self.raw_opts);
+		cmd
+	}
+}
+
+/// Applies to -Q
+struct QueryOpts {
+	changelog: bool,
+	deps: bool,
+	explicit: bool,
+	groups: bool,
+	info: bool,
+	check: bool,
+	list: bool,
+	owns: Vec<String>,
+	file: bool,
+	quiet: bool,
+	search: String,
+	unrequired: bool,
+	upgrades: bool,
+}
+
+/// Applies to -R
+struct RemoveOpts {
+	nodeps: bool,
+	assume_installed: Vec<String>,
+	dbonly: bool,
+	noprogressbar: bool,
+	noscriptlet: bool,
+	print: bool,
+	print_format: String,
+	cascade: bool,
+	nosave: bool,
+	recursive: bool,
+	unneeded: bool,
+}
+
+/// Applies to -S
+struct SyncOpts {
+	downloadonly: bool,
+	asdeps: bool,
+	asexplicit: bool,
+	ignore: Vec<String>,
+	ignoregroup: Vec<String>,
+	needed: bool,
+	overwrite: Vec<String>,
+	nodeps: bool,
+	assume_installed: Vec<String>,
+	dbonly: bool,
+	noprogressbar: bool,
+	noscriptlet: bool,
+	print: bool,
+	print_format: String,
+	clean: bool,
+	groups: bool,
+	info: bool,
+	list: bool,
+	quiet: bool,
+	search: String,
+	sysupgrade: bool,
+	refresh: bool,
+}
+
+/// Applies to -D
+struct DatabaseOpts {
+	asdeps: Vec<String>,
+	asexplicit: Vec<String>,
+	check: bool,
+	quiet: bool,
+}
+
+/// Applies to -F
+struct FileOpts {
+	refresh: bool,
+	list: bool,
+	regex: bool,
+	quiet: bool,
+	machinereadable: bool,
+}
+
+/// Applies to -U
+struct UpgradeOpts {
+	downloadonly: bool,
+	asdeps: bool,
+	asexplicit: bool,
+	ignore: Vec<String>,
+	ignoregroup: Vec<String>,
+	needed: bool,
+	overwrite: Vec<String>,
+	nodeps: bool,
+	assume_installed: Vec<String>,
+	dbonly: bool,
+	noprogressbar: bool,
+	noscriptlet: bool,
+	print: bool,
+	print_format: String,
+}
