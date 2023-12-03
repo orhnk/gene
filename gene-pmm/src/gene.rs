@@ -5,32 +5,37 @@ use clap::Parser;
 /// Managing package managers to standardize package management.
 #[derive(Parser, Debug)]
 #[command(author, version, about)]
-pub struct GeneParams {
-    /// Package name for action
-    // #[arg(short, long)]
-    name: String,
+pub struct GeneArgs {
+	/// Package name for action
+	#[arg(value_name = "PACKAGE_NAME")]
+	pub package_name: String,
 
-    /// Package Manager to use (if not written to gene-config)
-    #[arg(short, long)]
-    backend: Option<String>,
+	/// Package Manager to use (if not written to gene-config)
+	#[arg(short, long)]
+	pub backend: Option<String>,
 
-    /// Verbosity level
-    #[arg(short, long, default_value = "0")]
-    verbosity: i32,
-    // -v -vv -vvv -> 1, 2, 3
-    /// Path to global GENE gene-config file
-    #[arg(short, long, default_value = "$XDG_CONFIG_HOME/gene/gene.toml")]
-    config: Option<String>,
+	/// Verbosity level
+	#[arg(short, long, default_value = "0")]
+	pub verbosity: i32,
 
-    /// Local gene-config file to use
-    #[arg(short, long, default_value = "./gene.toml")]
-    local_config: Option<String>,
+	/// Path to global GENE gene-config file
+	#[arg(short, long, default_value = "$XDG_CONFIG_HOME/gene/gene.toml")]
+	pub config: String,
 
-    /// Quiet output
-    #[arg(short, long)]
-    quiet: bool,
+	/// Local gene-config file to use
+	#[arg(short, long, default_value = "./gene.toml")]
+	pub local_config: Option<String>,
 
-    /// Query packages
-    #[arg(short, long)]
-    search: bool,
+	/// Quiet output
+	#[arg(short, long)]
+	pub quiet: bool,
+
+	/// Query packages
+	#[arg(short, long)]
+	pub search: bool,
+
+	/// Raw Args to pass to backend
+	#[arg(long, short, requires = "backend")]
+	// TODO: backend is unnecessary if There is only one backend in the config
+	pub raw_args: Vec<String>,
 }
