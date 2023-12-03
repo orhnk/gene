@@ -1,7 +1,7 @@
 [workspace]
-members = ["config", "core", "plug", "pmm"]
+members = ["gene-config", "gene", "gene-plug", "gene-pmm"]
 
-default-members = ["core"]
+default-members = ["gene"]
 
 resolver = "2"
 
@@ -13,3 +13,11 @@ resolver = "2"
  repository = "https://github.com/utfeight/gene"
  version = "0.1.0"
  authors = ["utfeight <utfeightt@gmail.com>"]
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
+panic = "abort"
+debug = false
+strip = true

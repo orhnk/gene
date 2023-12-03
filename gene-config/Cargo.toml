@@ -1,5 +1,5 @@
 [package]
-name = "pmm"
+name = "gene-config"
 edition.workspace = true
 keywords.workspace = true
 license.workspace = true

@@ -1,0 +1,22 @@
+[package]
+name = "gene-core"
+description = "Core library for Gene Package Manager"
+edition.workspace = true
+keywords.workspace = true
+license.workspace = true
+homepage.workspace = true
+repository.workspace = true
+version.workspace = true
+authors.workspace = true
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+clap = { version = "4.4.10", features = ["derive"]}
+gene-pmm = { version = "*", path = "../gene-pmm" }
+gene-plug = { version = "*", path = "../gene-plug" }
+gene-config = { version = "*", path = "../gene-config" }
+
+[[bin]]
+name = "gene"
+path = "src/main.rs"
