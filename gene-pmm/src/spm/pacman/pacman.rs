@@ -302,60 +302,29 @@ use std::str::FromStr;
 
 #[derive(Debug, Clone, Copy, Default)]
 pub struct PacmanOpts {
-    /// Sync packages
-    pub sync: bool,
+	/// Sync packages
+	pub sync: bool,
 
-    /// Install packages
-    pub install: bool,
+	/// Install packages
+	pub install: bool,
 
-    /// Remove packages
-    pub remove: bool,
+	/// Remove packages
+	pub remove: bool,
 
-    /// Update packages
-    pub update: bool,
+	/// Update packages
+	pub update: bool,
 
-    /// Upgrade packages
-    pub upgrade: bool,
-}
-
-impl FromStr for PacmanOpts {
-    type Err = String;
-
-    /// Parse a string of options into PacmanOpts
-    fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let mut chars = s.chars();
-
-        if s.is_empty() {
-            return Err("No options provided".to_string());
-        }
-        if s.starts_with('-') {
-            chars.next();
-            println!("{:?}", chars)
-        } // remove leading '-' if present
-
-        let mut opts = PacmanOpts::default();
-        for c in chars {
-            match c.to_ascii_lowercase() {
-                // We're only working with ASCII characters here (-S, -i, -r, -u, -U)
-                's' => opts.sync = true,
-                'i' => opts.install = true,
-                'r' => opts.remove = true,
-                'u' => opts.update = true,
-                'U' => opts.upgrade = true,
-                _ => return Err(format!("Invalid option: {}", c)),
-            }
-        }
-        Ok(opts)
-    }
+	/// Upgrade packages
+	pub upgrade: bool,
 }
 
 #[derive(Debug)]
 pub struct Pacman {
-    /// Options to get translated from gene representation then passed to pacman
-    opts: PacmanOpts,
+	/// Options to get translated from gene representation then passed to pacman
+	opts: PacmanOpts,
 
-    /// Raw options to pass to pacman
-    raw_opts: String,
+	/// Raw options to pass to pacman
+	raw_opts: String,
 }
 
 impl From<&GeneArgs> for Pacman {
