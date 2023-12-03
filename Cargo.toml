@@ -1,5 +1,5 @@
 [workspace]
-members = ["gene-config", "gene", "gene-plug", "gene-pmm"]
+members = ["gene-config", "gene", "gene-plug", "gene-pmm", "gene-proc", "gene-utils"]
 
 default-members = ["gene"]
 

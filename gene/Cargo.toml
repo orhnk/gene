@@ -16,6 +16,9 @@ clap = { version = "4.4.10", features = ["derive"]}
 gene-pmm = { version = "*", path = "../gene-pmm" }
 gene-plug = { version = "*", path = "../gene-plug" }
 gene-config = { version = "*", path = "../gene-config" }
+gene-utils = { version = "*", path = "../gene-utils" }
+anyhow = "1.0.75"
+thiserror = "1.0.50"
 
 [[bin]]
 name = "gene"
