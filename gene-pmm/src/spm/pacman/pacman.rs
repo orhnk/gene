@@ -358,31 +358,10 @@ pub struct Pacman {
     raw_opts: String,
 }
 
-impl PackageManager for Pacman {
-    fn from_gene(args: &GeneArgs) -> Self {
-        let opts = PacmanOpts::from_str(&args.raw_args.join("")).unwrap_or_default();
-        let raw_opts = args.raw_args.join(" ");
-        Self { opts, raw_opts }
-    }
-
-    fn compile(&self) -> String {
-        let mut cmd = String::new();
-        if self.opts.sync {
-            cmd.push_str("-S ");
-        }
-        if self.opts.install {
-            cmd.push_str("-i ");
-        }
-        if self.opts.remove {
-            cmd.push_str("-r ");
-        }
-        if self.opts.update {
-            cmd.push_str("-u ");
-        }
-        if self.opts.upgrade {
-            cmd.push_str("-U ");
-        }
-        cmd.push_str(&self.raw_opts);
-        cmd
-    }
+impl From<&GeneArgs> for Pacman {
+	fn from(args: &GeneArgs) -> Self {
+		let opts = PacmanOpts::from_str(&args.raw_args.join("")).unwrap_or_default();
+		let raw_opts = args.raw_args.join(" ");
+		Self { opts, raw_opts }
+	}
 }
