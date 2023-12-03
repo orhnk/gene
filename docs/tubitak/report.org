@@ -1,0 +1,6 @@
+#+title: GENE Paket Yöneticisi
+
+ #+begin_quote
+PROJE ANA ALANI: YAZILIM
+PROJE TEMATİK ALANI: Dijital Dönüşüm
+ #+end_quote
