@@ -7,6 +7,8 @@
       <sourceFolder url="file://$MODULE_DIR$/gene-plug/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/gene-pmm/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/gene/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/gene-proc/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/gene-utils/src" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
     <orderEntry type="inheritedJdk" />

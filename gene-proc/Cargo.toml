@@ -1,0 +1,16 @@
+[package]
+name = "gene-proc"
+edition.workspace = true
+keywords.workspace = true
+license.workspace = true
+homepage.workspace = true
+repository.workspace = true
+version.workspace = true
+authors.workspace = true
+
+[lib]
+proc-macro = true
+
+[dependencies]
+syn = "2.0.39"
+quote = "1.0"
