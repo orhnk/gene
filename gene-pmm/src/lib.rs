@@ -1,5 +1,5 @@
 pub mod gene;
-pub mod package_manager;
+pub mod pm;
 pub mod spm;
 pub fn add(left: usize, right: usize) -> usize {
     left + right
