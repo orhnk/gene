@@ -1,5 +1,13 @@
 # GENE Paket 2xYöneticisi
 
+> DİKKAT: Proje raporunuza kesinlikle “kapak sayfası” yapmayınız ve kişisel bilgilerinizi
+(adınız-soyadınız, okul adı, danışman adı, okul logosu ve filigranı dâhil) yerleştirmeyiniz.
+Oluşturacağınız proje raporu, Times New Roman karakterleriyle, 12 punto, sayfanın her
+yanından 2,5 cm boşluk bırakarak, tek satır aralığı ile iki yana yaslı olarak yazılmalıdır. Proje
+Raporu en fazla 20 sayfa olmalıdır. Aşağıda yer alan bölümlerin yazılı kısımlarını çıkararak
+kendi metinlerinizi ekleyebilirsiniz (Raporunuzu yazarken bu “Dikkat” paragrafını silmeyi
+unutmayınız).
+
 > PROJE ANA ALANI: Yazılım
 >
 > PROJE TEMATİK ALANI: Dijital Dönüşüm
@@ -32,7 +40,79 @@ soyutlayarak (abstraction) ortadan kaldırmayı hedeflemektedir.
 
 ## PROJE AMACI
 
+
+
 ## Giriş
+
+> Amaç, (alt) problemler, (alt) hipotezler, varsayımlar, sınırlılıklar, tanımlar ve alt başlıklara yer verilmeli.
+> 
+> Benzer Çalışmalar, farklılıklar, neyi nasıl farklı yapıyor?, 
+
+GENE projemizin temel amacı, paket yöneticileri arasındaki temel farklılıkları ve bu farklılıklar
+sonucu ortaya çıkan sıkıntıları ortadan kaldırmaktır. Neredeyse bütün yazılım geliştiricilerinin
+kullandığı paket yöneticileri, sistemden sisteme farklılık gösterdiğinden dolayı ortaya çıkan kafa
+karışıklığına sebep olmaktadır. Örneğin Debian tabanlı Linux dağıtımlarında yaygın olan `apt` paket 
+yöneticisinde en ünlü yapılandırma sistemlerinden biri olan make paketinin adı `make` iken, son
+zamanlarda Linux dağıtımları arasında popülerlik kazanan NixOS'in kullandığı `nix` paket yöneticisinde
+`gnumake` ismine sahiptir. Bu tarz bir problemi düzeltmenin yolu internet üzerinden kısa bir araştırma
+yapmak ve paketin doğru adını bulmaktır. Bu durum her paket için geçerli olmasa da gereksiz zaman kaybına
+sebep olmaktadır.
+
+GENE paket yöneticisi yalnızca paket isimlerini standartlaştırmakla yetinmez. Kullanılan paket yöneticisinin
+komutlarını, dökümantasyonunu da belirli bir standarda oturtarak sistemler arası birliktelik ve standartlaşma
+sağlar.
+
+GENE paket yöneticisi geliştirilirken kolay modülarize edilebilir şekilde tasarlanmış ve üzerine yeni eklentiler
+eklenmesi kolay hale getirilmiştir. Bu sayede GENE'nin desteklemediği bir paket yöneticisi için
+destek sağlamak oldukça kolaydır.
+
+### GPacistry
+
+GENE'nin en özgün özelliklerinden birisi kendi paket kayıt sistemini tutarak paketler arası standartlaşmayı sağlamasıdır.
+
+Algoritmamız şu şekilde çalışır:
+
+- Desteklenmek üzere tasarlanmış paket yöneticilerinden paket bilgilerini karşılaştır.
+- Paket verileri örtüşen paketleri eşleştir.
+- Eşleşen paketlere en yaygın kullanılan ismi ata.
+- Verileri Web tabanlı bir veri tabanına gönder (package registry)
+- Geri kalan paketler arasında eşleşebilecek bütün paketleri eşleştirene kadar devam et.
+
+Bu işlemlerden sonra eşleştirdiğimiz paketler, standartlaşma işlemini başarıyla tamamladıklarından dolayı amacımıza ulaşmış olduk.
+Geriye kalan eşleşmeyen paketler için ise GENE, bir gruplama işlemi uygulayarak sisteme bağlı paketleri kendi veri havuzuna aktarır.
+Bunu yapmak için aşağıdaki algoritmayı kullanır:
+
+> [!NOTE]
+> Bu aşamadaki bütün paketlerin tekil (eşi olmayan) olduğu bilindiğinden
+> ayrı bir eleme aşamasından geçmemektedir.
+
+- Elemeden geçecek olan paketin hangi paket yöneticilerininde çalışacağı bilgisini veri havuzuna alır.
+- Eğer paketi indirmeye çalıştığınızda sisteminizde pakete uygun bir paket yönetcisi yoksa sizi uyarır ve paketi indirmez.
+
+### Çevirimler
+
+GENE Paket yöneticisi, bütün sistemlerde aynı şekilde çalışabilmek için geliştirilmiş bir komut şablonu kullanır.
+aşağıda bu problemin örneklerini popüler paket yöneticileri ile gösterimi bulunmaktadır.
+
+
+| Paket Yönetcisi | Paket İndirme | Paket Güncelleme | Paket Sorgulama |
+
+| Paket Yöneticisi | İndirme Komutu          | Güncelleme Komutu                         | Sorgulama Komutu       | Silme Komutu                                   |
+|:-----------------|:------------------------|:------------------------------------------|:-----------------------|:-----------------------------------------------|
+| `APT`            | `apt install <paket>`   | `apt upgrade <paket>`                     | `apt search <paket>`   | `apt remove <paket>`                           |
+| `Pacman`         | `pacman -S <paket>`     | `pacman -S <paket>`                       | `pacman -Ss <paket>`   | `pacman -Rsc <paket>`                          | 
+| `Nix`            | `nix-env -i <paket>`    | `nix search <paket>`                      | `nix-env -u <paket>`   | `nix -e <paket>`                               |
+| `Homebrew`       | `brew install <paket>`  | `brew upgrade <paket>`                    | `brew serach <paket>`  | `brew uninstall <paket>`                       |
+| `Chocolatey`     | `choco install <paket>` | `choco upgrade <paket>`                   | `choco search <paket>` | `choco uninstall <paket>`                      |
+| `Scoop`          | `scoop install <paket>` | `scoop update <paket>`                    | `scoop search <paket>` | `scoop uninstall <paket>`                      |
+| `Yum`            | `yum install <paket>`   | `yum update <paket>`                      | `yum search <paket>`   | `yum erase <paket>` ya da `yum remove <paket>` |
+| `Dnf`            | `dnf install <paket>`   | TODO: validate `dnf upgrade <paket>`      | `dnf search <paket>`   | `dnf remove <paket>`                           |
+| `RPM`            | `rpm -i <paket>`        | TODO: betterify `rpm -U <rpm dosya ismi>` | TODO: `rpm  <paket>`   | `rpm -e <paket>`                               |
+
+<!-- Projemizin çalışma süreci (runtime) içerisinde kimi algoritmalar tarafından çevirimler uygulanıp -->
+<!-- GENE komutları kullandığınız sistemin paket yöneticisinin komutlarına çevrilmekte ve bu sayede   -->
+<!-- tamamen soyutlaştırılmış bir şekilde sistemler arası standartlaşma sağlanmaktadır.               -->
+
 
 ## Yöntem
 
@@ -77,6 +157,17 @@ kayıt sistemi geliştirdik. Bu kayıt sistemi GPacistry olarak adlandırılmakt
 ## Öneriler
 
 ## Kaynaklar
+
+- Nix Paket Yöneticisi komutları: https://www.mankier.com/1/nix-env https://github.com/brainrake/nixos-tutorial/blob/master/cheatsheet.md
+- Pacman Paket Yöneticisi komutları: https://devhints.io/pacman
+- HomeBrew Paket Yöneticisi komutları: https://devhints.io/homebrew https://stackoverflow.com/questions/8833230/how-do-i-find-a-list-of-homebrews-installable-packages
+- Chocolatey Paket Yöneticisi komutları: https://gist.github.com/yunga/ https://docs.chocolatey.org/en-us/choco/commands/upgrade https://docs.chocolatey.org/en-us/choco/commands/uninstall
+- Scoop Paket Yöneticisi komutları: https://github.com/ScoopInstaller/Scoop/wiki/Commands
+- Yum Paket Yöneticisi komutları: https://access.redhat.com/sites/default/files/attachments/rh_yum_cheatsheet_1214_jcs_print-1.pdf
+- Dnf Paket Yöneticisi komutları: https://docs.fedoraproject.org/en-US/quick-docs/dnf/
+- RPM Pkaet Yöneticisi komutları: https://www.golinuxcloud.com/rpm-command-in-linux/
+- 
+
 
 ## Ekler
 
