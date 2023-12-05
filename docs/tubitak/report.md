@@ -16,6 +16,38 @@ unutmayınız).
 
 ## PROJE ÖZETİ
 
+### OKULDA
+
+Son yıllarda yazılım geliştirmeyi kolaylaştırmak adına geliştirilen teknolojiler arasında
+günlük kullanımda en sık kullanılan yazılımlardan birisi de şüphesiz paket yöneticileridir.
+
+Paket Yöneticilerini 3 temel başlık altında inceleyebiliriz:
+#### SPM (System Package Manager)
+
+Sistem Paket Yöneticileri çoğu Linux dağıtımında varsayılan olarak yer alan, yazılım geliştirme adına
+faydalarından dolayı Windows ve MacOS gibi işletim sistemlerine de replikaları yazılmış bir programdır. [//] # (sureify)
+
+SPM'lere 
+
+#### LPM (Language Package Manager)
+
+Programlama dillerine özgü paket yöneticilerinin genel kullanım alanı bir projeyi geliştirirken
+kullanılan kütüphaneleri indirme amacıyla kullanılır. Örnek olarak:
+Python programlama dilinin ünlü paket yönetici olan "Preffered Installer Program" (PIP)
+ya da Rust programlama dilinin `cargo` paket yöneticisi örnek verilebilir.
+
+#### PDM (Project Dependency Manager)
+
+Kullanımı LPM ve SPM'lere kıyasla daha az yaygın olan bir paket yöneticisi tipidir.
+Genellikle büyük çaplı frameworklerin kullanması gereken kütüphanelerin indirilmesi ve
+düzenlenmesi için kullanılır.
+
+PDM'lere Conda paket yöneticisi, Neovim kod editörü için geliştirilmiş Lazy.nvim paket yöneticisi,
+JetBrains IDE'lerinde kullanılan eklenti sistemi veya .NET framework için kullanılan NuGet örnek verilebilir. [//] # (search furthermore for NuGet Package manager)
+
+
+### OKULDA END
+
 Profesyonel yazılımcıların 40% ila 50%'u linux temelli işletim sistemi kullanıyor.
 Kullanımının bu kadar yaygın olmasının pek çok sebebi olsa da Linux tabanlı işletim
 sistemlerinin sunduğu en önemli avantajlardan biri paket yöneticileridir. Her şeyin
@@ -166,7 +198,8 @@ kayıt sistemi geliştirdik. Bu kayıt sistemi GPacistry olarak adlandırılmakt
 - Yum Paket Yöneticisi komutları: https://access.redhat.com/sites/default/files/attachments/rh_yum_cheatsheet_1214_jcs_print-1.pdf
 - Dnf Paket Yöneticisi komutları: https://docs.fedoraproject.org/en-US/quick-docs/dnf/
 - RPM Pkaet Yöneticisi komutları: https://www.golinuxcloud.com/rpm-command-in-linux/
-- 
+
+- Paket Yöneticisi tasarımı genel bilgi: https://medium.com/@sdboyer/so-you-want-to-write-a-package-manager-4ae9c17d9527
 
 
 ## Ekler
