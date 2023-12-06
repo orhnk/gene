@@ -127,19 +127,26 @@ GENE Paket yöneticisi, bütün sistemlerde aynı şekilde çalışabilmek için
 aşağıda bu problemin örneklerini popüler paket yöneticileri ile gösterimi bulunmaktadır.
 
 
-| Paket Yönetcisi | Paket İndirme | Paket Güncelleme | Paket Sorgulama |
+> NOT: Aşağıda Nix Paket Yöneticisi'nin komut hali verilmiştir ancak Nix Paket Yöneticisi'nin manuel olarak
+> çalıştırılması, tavsiye edilmez. Bunun yerine `configuration.nix` dosyası üzerinden yapılandırma yapılmalıdır.
 
-| Paket Yöneticisi | İndirme Komutu          | Güncelleme Komutu                         | Sorgulama Komutu       | Silme Komutu                                   |
-|:-----------------|:------------------------|:------------------------------------------|:-----------------------|:-----------------------------------------------|
-| `APT`            | `apt install <paket>`   | `apt upgrade <paket>`                     | `apt search <paket>`   | `apt remove <paket>`                           |
-| `Pacman`         | `pacman -S <paket>`     | `pacman -S <paket>`                       | `pacman -Ss <paket>`   | `pacman -Rsc <paket>`                          | 
-| `Nix`            | `nix-env -i <paket>`    | `nix search <paket>`                      | `nix-env -u <paket>`   | `nix -e <paket>`                               |
-| `Homebrew`       | `brew install <paket>`  | `brew upgrade <paket>`                    | `brew serach <paket>`  | `brew uninstall <paket>`                       |
-| `Chocolatey`     | `choco install <paket>` | `choco upgrade <paket>`                   | `choco search <paket>` | `choco uninstall <paket>`                      |
-| `Scoop`          | `scoop install <paket>` | `scoop update <paket>`                    | `scoop search <paket>` | `scoop uninstall <paket>`                      |
-| `Yum`            | `yum install <paket>`   | `yum update <paket>`                      | `yum search <paket>`   | `yum erase <paket>` ya da `yum remove <paket>` |
-| `Dnf`            | `dnf install <paket>`   | TODO: validate `dnf upgrade <paket>`      | `dnf search <paket>`   | `dnf remove <paket>`                           |
-| `RPM`            | `rpm -i <paket>`        | TODO: betterify `rpm -U <rpm dosya ismi>` | TODO: `rpm  <paket>`   | `rpm -e <paket>`                               |
+| Paket Yöneticisi | İndirme Komutu           | Güncelleme Komutu          | Sorgulama Komutu          | Silme Komutu               |
+|:-----------------|:-------------------------|:---------------------------|:--------------------------|:---------------------------|
+| `APT`            | `apt install <paket>`    | `apt upgrade <paket>`      | `apt search <paket>`      | `apt remove <paket>`       |
+| `Pacman`         | `pacman -S <paket>`      | `pacman -S <paket>`        | `pacman -Ss <paket>`      | `pacman -Rsc <paket>`      | 
+| `Nix`            | `nix-env -i <paket>`     | `nix search <paket>`       | `nix-env -u <paket>`      | `nix -e <paket>`           |
+| `Homebrew`       | `brew install <paket>`   | `brew upgrade <paket>`     | `brew serach <paket>`     | `brew uninstall <paket>`   |
+| `Chocolatey`     | `choco install <paket>`  | `choco upgrade <paket>`    | `choco search <paket>`    | `choco uninstall <paket>`  |
+| `Scoop`          | `scoop install <paket>`  | `scoop update <paket>`     | `scoop search <paket>`    | `scoop uninstall <paket>`  |
+| `Yum`            | `yum install <paket>`    | `yum update <paket>`       | `yum search <paket>`      | `yum remove <paket>`       |
+| `Dnf`            | `dnf install <paket>`    | `dnf update <paket>`       | `dnf search <paket>`      | `dnf remove <paket>`       |
+| `Zypper`		       | `zypper install <paket>` | `zypper update <paket>`    | `zypper search <paket>`   | `zypper remove <paket>`    |
+| `APK`            | `apk add <paket>`        | `apk upgrade <paket>`      | `apk search <paket>`      | `apk del <paket>`          |
+| `Xbps`           | `xbps-install <paket>`   | `xbps-install -Su <paket>` | `xbps-query -Rs <paket>`  | `xbps-remove <paket>`      |
+| `RPM`            | `rpm -i <paket>`         | `rpm -U <paket>`           | `rpm -qf <paket>`         | `rpm -e <paket>`           |
+| `Portage`        | `emerge <paket>`         | `emerge --update <paket>`  | `emerge --search <paket>` | `emerge --unmerge <paket>` | [//]: # (Validate)
+
+[//]: # (| `RPM-ostree`     | `rpm-ostree install <paket>` | `rpm-ostree upgrade <paket>` | `rpm-ostree search <paket>` | `rpm-ostree uninstall <paket>` |)
 
 <!-- Projemizin çalışma süreci (runtime) içerisinde kimi algoritmalar tarafından çevirimler uygulanıp -->
 <!-- GENE komutları kullandığınız sistemin paket yöneticisinin komutlarına çevrilmekte ve bu sayede   -->
@@ -197,7 +204,10 @@ kayıt sistemi geliştirdik. Bu kayıt sistemi GPacistry olarak adlandırılmakt
 - Scoop Paket Yöneticisi komutları: https://github.com/ScoopInstaller/Scoop/wiki/Commands
 - Yum Paket Yöneticisi komutları: https://access.redhat.com/sites/default/files/attachments/rh_yum_cheatsheet_1214_jcs_print-1.pdf
 - Dnf Paket Yöneticisi komutları: https://docs.fedoraproject.org/en-US/quick-docs/dnf/
-- RPM Pkaet Yöneticisi komutları: https://www.golinuxcloud.com/rpm-command-in-linux/
+[//] # (- RPM Paket Yöneticisi komutları: https://www.golinuxcloud.com/rpm-command-in-linux/ https://access.redhat.com/solutions/1189)
+- Zypper Paket Yöneticisi komutları: https://www.maketecheasier.com/cheatsheet/zypper-package-manager/
+- APK Paket Yöneticisi komutları: https://wiki.alpinelinux.org/wiki/Alpine_Linux_package_management
+- Xbps Paket Yöneticisi komutları: https://docs.voidlinux.org/xbps/index.html 
 
 - Paket Yöneticisi tasarımı genel bilgi: https://medium.com/@sdboyer/so-you-want-to-write-a-package-manager-4ae9c17d9527
 
