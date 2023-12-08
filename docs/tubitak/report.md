@@ -16,37 +16,118 @@ unutmayınız).
 
 ## PROJE ÖZETİ
 
-### OKULDA
-
 Son yıllarda yazılım geliştirmeyi kolaylaştırmak adına geliştirilen teknolojiler arasında
-günlük kullanımda en sık kullanılan yazılımlardan birisi de şüphesiz paket yöneticileridir.
+bilgisayar bilimcilerin en sık kullanıdığı teknolojilerden birisi şüphesiz paket yöneticileridir.
 
-Paket Yöneticilerini 3 temel başlık altında inceleyebiliriz:
+Paket Yöneticileri; Projenizi geliştirme, bakım faaliyetleri (maintainance), kullanım kolaylığı gibi pek çok açıdan
+işinizi kolaylaştırdıklarından günümüz yazılım sistemleri için bir standart halini almıştır.
+
+Linux kernel'ini kullanan işletim sistemlerinin genellikle varsayılan olarak gelirken
+Windows ve MacOS gibi işletim sistemlerinde sonradan indirmeniz gerekir.
+
+Kullandığınız paket yöneticisini, işletim sisteminizin çalışma mantığı ile aynı doğrultuda olduğundan dolayı, (bkz. [NixOS](https://nixos.org/))
+işletim sisteminiz ile paket yöneticiniz aynı organizasyon tarafından geliştirilmiştir.
+
+Büyük işletim sistemi projeleri kendi paket yöneticilerini temelden tasarladıklarından dolayı
+sistemden sisteme paket yöneticilerinin işleyiş şeması farklılıklar gösterir.
+
+Ancak bu durum, programlama prensiplerinden ["Generalizasyon Prensibi"](http://principles-wiki.net/principles:generalization_principle)ne aykırı olup
+program tasarımının en zor kısmı olan koruma (maintainance) başlığı altındaki standartalizasyon (standardization) konusunda
+ciddi sıkıntılar içermekte ve kafa karışıklığına sebep olmaktadır.
+
+Probleme örnek olarak:
+- Ubuntu kullanan bir kullanıcının Archlinux işletim sistemine geçmesi sonucu `pacman` paket yöneticisini kullanmakta zorlanması
+- SuSe işletim sisteminde ünlü standartlardan biri olan `make` C yapılandırma sisteminin nix paket yöneticisinde `gnumake` olması
+- Github üzerinden kurulumu yapılmaya çalışılan bir yazılımın bağlı olduğu kütüphaneleri bulmakta zorlanılması
+
+Yazılım geliştiriciliği ile uğraşmış pek çok kişinin karşılaşmış olduğu bu problemi çözme amacıyla geliştirdiğimiz projemiz GENE,
+platformlar arası değişiklikleri, soyutlayarak (bkz. [abstraction](https://en.wikipedia.org/wiki/Abstraction_(computer_science))) ortadan kaldırmayı hedeflemektedir.
+Hedef kitlesi paket yöneticileri aktif kullanan yazılım geliştiricileri olduğundan bu alandaki diğer projelerin güçlü yanlarından ilham almıştır.
+
+GENE Paket Yöneticisi kendisine üç temel prensip biçer:
+- Standart
+- Bağımsız
+- Dekleratif
+
+## Standart
+
+Bir çok paket ismi sistemden sisteme göre değişiyor. Örneğin Windows Scoop paket yöneticisi `rider` paketi Nix `jetbrains.rider`
+
+## Bağımsız
+
+## Dekleratif
+
+> Deklerativite açısından Nix Paket Yöneticisinden etkilenmiş ve NixOS işletim sisteminin temel çalışma şemasına bağlı kalmıştır.
+
+Paket Yönetimi gerektiren projelerin insan faktöründen dolayı kolaylıkla karmaşık hale gelebilmektedir.
+Bir problemi çözerken başka bir probleme yol açmamak için GENE Paket Yöneticisi'ni dekleratif biçimde tasarladık.
+
+Konfigürasyonu basit, okunabilir ve hataya kapalı bir şekilde yazabilmek için GENE, Yalnızca TOML (Tom's Obvious Markup Language)
+İşaretleme Dili'ni tercih etmiştir.
+
+GENE Paket Yöneticisi'ni önerilen şekilde kullanmak için en az iki adet konfigürasyon dosyası gerekmektedir.
+> NOT: Aşağıdaki dosya konumları XDG standardına ve APT paket yöneticisine uygun şekilde yazılmıştır.
+1. `$XDG_CONFIG_HOME/gene/gene.toml` - Sistem ana konfigurasyonu
+   ```toml
+   [system]
+   backends = [
+		"apt",
+   ]
+   ```
+
+> `<PROJE_KÖK_KLASÖRÜ>` yerine indireceğiniz paketerin ilgili projesinin ana klasörünü yazınız.
+
+2. `<PROJE_KÖK_KLASÖRÜ>/gene.toml` - Paket indirme amaçlı Lokal konfigürasyon
+   ```toml
+   [system]
+   deps = [
+		"make",
+   ]
+   ```
+
+Kullandığınız projeyi dekleratif biçimde konfigüre ettiğinizden dolayı sizin bilgisayarınızda çalışan bir paket
+başkasının bilgisayarında da çalışacaktır.
+
+<!-- COMMENTSTR
+Paket Yöneticileri sağladıkları faydalardan dolayı İşletim Sistemi bağlamından başka sistemlerle de kullanılmaktadır
+Bu Paket Yöneticilerini 3 temel başlık altında inceleyebiliriz:
+
 #### SPM (System Package Manager)
 
-Sistem Paket Yöneticileri çoğu Linux dağıtımında varsayılan olarak yer alan, yazılım geliştirme adına
-faydalarından dolayı Windows ve MacOS gibi işletim sistemlerine de replikaları yazılmış bir programdır. [//] # (sureify)
+"Sistem Paket Yöneticisi" ingilizce kısaltılmasıdır.
 
-SPM'lere 
+Sistem Paket Yöneticileri; çoğu Linux dağıtımında varsayılan olarak yer alan, yazılım geliştirme adına
+faydalarından dolayı Windows ve MacOS gibi işletim sistemlerine de replikaları yazılmış bir program türüdür. [//] # (sureify)
+
+Örnek olarak;
+- MacOS X'i hedef alan `homebrew`, `MacPorts`
+- Windows'u hedef alan `scoop` ve `chocolatey`
+- Linux temelli işletim sistemleri için pek çok paket yöneticisi olsa da en çok bilinenler arasında `APT`, `Pacman`, `XBPS`, `RPM` ve RPM'i temel alan paket yöneticileri örnek verilebilir.
 
 #### LPM (Language Package Manager)
 
+"Programlama Dili Paket yöneticisi" ingilizce kısaltılmasıdır.
+
 Programlama dillerine özgü paket yöneticilerinin genel kullanım alanı bir projeyi geliştirirken
-kullanılan kütüphaneleri indirme amacıyla kullanılır. Örnek olarak:
-Python programlama dilinin ünlü paket yönetici olan "Preffered Installer Program" (PIP)
-ya da Rust programlama dilinin `cargo` paket yöneticisi örnek verilebilir.
+kullanılan kütüphaneleri indirme amacıyla kullanılır.
+
+Örnek olarak;
+- Python programlama dilinin ünlü paket yönetici olan "Preffered Installer Program" (PIP)
+- Rust programlama dilinin `cargo` paket yöneticisi.
+- C/C++ programlama dilleri için (standartlaştırılmamış olmalarına rağmen) `vcpkg`, `conda`
+verilebilir.
 
 #### PDM (Project Dependency Manager)
+
+"Proje Paket Yöneticisi" ingilizce kısaltamsıdır.
 
 Kullanımı LPM ve SPM'lere kıyasla daha az yaygın olan bir paket yöneticisi tipidir.
 Genellikle büyük çaplı frameworklerin kullanması gereken kütüphanelerin indirilmesi ve
 düzenlenmesi için kullanılır.
 
-PDM'lere Conda paket yöneticisi, Neovim kod editörü için geliştirilmiş Lazy.nvim paket yöneticisi,
-JetBrains IDE'lerinde kullanılan eklenti sistemi veya .NET framework için kullanılan NuGet örnek verilebilir. [//] # (search furthermore for NuGet Package manager)
+PDM'lere `Conda` paket yöneticisi, Neovim kod editörü için geliştirilmiş `Lazy.nvim` paket yöneticisi,
+JetBrains IDE'lerinde kullanılan eklenti sistemi veya `.NET` framework için kullanılan `NuGet` örnek verilebilir. [//] # (search furthermore for NuGet Package manager)
 
-
-### OKULDA END
 
 Profesyonel yazılımcıların 40% ila 50%'u linux temelli işletim sistemi kullanıyor.
 Kullanımının bu kadar yaygın olmasının pek çok sebebi olsa da Linux tabanlı işletim
@@ -69,10 +150,9 @@ sağlayarak, kullanıcıların farklı dağıtımlar arasında geçiş yaparken 
 soyutlayarak (abstraction) ortadan kaldırmayı hedeflemektedir.
 
 > Anahtar Kelimeler: Linux, Paket Yöneticisi, Standartlaştırma, Soyutlama
+-->
 
 ## PROJE AMACI
-
-
 
 ## Giriş
 
