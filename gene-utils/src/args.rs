@@ -34,9 +34,9 @@ use clap::Parser;
 #[derive(Parser, Debug)]
 #[command(author, version, about)]
 pub struct GeneArgs {
-	/// Package name for action
-	#[arg(value_name = "PACKAGE_NAME")]
-	pub package_name: String,
+	/// Package name(s) for action
+	#[arg(value_name = "PACKAGES")]
+	pub packages: Vec<String>,
 
 	/// Package Manager to use (if not written to gene-config)
 	#[arg(short, long)]
@@ -58,6 +58,10 @@ pub struct GeneArgs {
 	#[arg(short, long)]
 	pub query: bool,
 
+	/// Install package
+	#[arg(short, long)]
+	pub install: bool,
+
 	/// Remove package
 	#[arg(short, long)]
 	pub remove: bool,
@@ -76,6 +80,6 @@ pub struct GeneArgs {
 
 	/// Raw Args to pass to backend
 	#[arg(short = 'R', long)]
-	// TODO: valiadate at least one backend is provided
+	// TODO: validate at least one backend is provided
 	pub raw_args: Vec<String>,
 }
