@@ -1,7 +1,7 @@
 use thiserror::Error;
 
 #[derive(Error, Debug)]
-pub enum ConfigError<'a> {
+pub enum OptError<'a> {
 	#[error("invalid package manager: expected {expected:?} in {found:?}")]
 	InvalidPackageManager {
 		expected: &'a str,

@@ -300,20 +300,20 @@ use gene_utils::args::GeneArgs;
 use crate::pm::PackageManager;
 use std::str::FromStr;
 use gene_proc::Name;
-use crate::error::ConfigError;
+use crate::error::OptError;
 use crate::raw_args::RawArgs;
 
 impl<'a> TryFrom<&'a GeneArgs> for Pacman<'a> {
-	type Error = ConfigError<'a>;
+	type Error = OptError<'a>;
 
 	fn try_from(args: &'a GeneArgs) -> Result<Self, Self::Error> {
 		if args.backends.is_none() {
-			return Err(ConfigError::NoPackageManager);
+			return Err(OptError::NoPackageManager);
 		}
 
 		// if the machine doesn't have pacman installed specifically
 		if !args.backends.as_ref().unwrap().contains(&Pacman::name().to_string()) {
-			return Err(ConfigError::InvalidPackageManager {
+			return Err(OptError::InvalidPackageManager {
 				expected: Pacman::name(),
 				found: args.backends.as_ref().unwrap(),
 			});
