@@ -1,6 +1,10 @@
+use std::collections::HashMap;
 use clap::Parser;
 use gene_utils::args::GeneArgs;
 use gene_pmm::spm::pacman::*;
+use gene_config::config::GeneTomlFormat;
+use toml;
+use toml::Value;
 
 
 // NOTE: I wanted to use `anyhow` for error handling, but it doesn't work with limited lifetimes
@@ -9,7 +13,14 @@ use gene_pmm::spm::pacman::*;
 // TODO: improve overall error handling
 
 fn main() {
-    let args: GeneArgs = GeneArgs::parse();
-    let pacman_repr = Pacman::try_from(&args).expect("failed to create pacman");
-    println!("{:#?}", pacman_repr);
+	let config = r#"
+	[system]
+	backends = [
+		"some",
+	]
+	"#;
+
+	let config: GeneTomlFormat = toml::from_str(config).unwrap();
+
+	println!("{:#?}", config);
 }
