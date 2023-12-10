@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="gitlab-config">
+    <option name="stateMap">
+      <map>
+        <entry key="gene">
+          <value>
+            <GitlabConfigState />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
