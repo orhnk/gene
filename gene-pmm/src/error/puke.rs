@@ -4,7 +4,7 @@ use thiserror::Error;
 pub enum ConfigError<'a> {
 	#[error("invalid package manager: expected {expected:?} in {found:?}")]
 	InvalidPackageManager {
-		expected: String,
+		expected: &'a str,
 		found: &'a Vec<String>,
 	},
 

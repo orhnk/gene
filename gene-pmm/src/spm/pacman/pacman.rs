@@ -301,78 +301,144 @@ use crate::pm::PackageManager;
 use std::str::FromStr;
 use gene_proc::Name;
 use crate::error::ConfigError;
+use crate::raw_args::RawArgs;
 
-#[derive(Debug, Clone, Copy, Default)]
-pub struct PacmanOpts {
-	/// Sync packages
-	pub sync: bool,
-
-	/// Install packages
-	pub install: bool,
-
-	/// Remove packages
-	pub remove: bool,
-
-	/// Update packages
-	pub update: bool,
-
-	/// Upgrade packages
-	pub upgrade: bool,
-}
-
-#[derive(Debug, Name)]
-pub struct Pacman {
-	/// Options to get translated from gene representation then passed to pacman
-	opts: PacmanOpts,
-
-	/// Raw options to pass to pacman
-	raw_opts: String,
-}
-
-impl<'a> TryFrom<&'a GeneArgs> for Pacman {
+impl<'a> TryFrom<&'a GeneArgs> for Pacman<'a> {
 	type Error = ConfigError<'a>;
 
 	fn try_from(args: &'a GeneArgs) -> Result<Self, Self::Error> {
-		let mut opts = Pacman::new();
-
 		if args.backends.is_none() {
 			return Err(ConfigError::NoPackageManager);
 		}
 
 		// if the machine doesn't have pacman installed specifically
-		if !args.backends.as_ref().unwrap().contains(&Pacman::name()) {
+		if !args.backends.as_ref().unwrap().contains(&Pacman::name().to_string()) {
 			return Err(ConfigError::InvalidPackageManager {
 				expected: Pacman::name(),
 				found: args.backends.as_ref().unwrap(),
 			});
 		}
 
-		Ok(opts)
+		let mut opts = PacmanOpts::new(&args.packages);
+
+
+		opts.packages = args.packages.as_ref();
+		opts.sync = args.install; // TODO: validate syncing vs installing
+		opts.remove = args.remove;
+		opts.update = args.upgrade;
+
+
+		Ok(
+			Pacman {
+				opts,
+				raw_opts: Some(RawArgs::from(&args.raw_args)),
+			}
+		)
 	}
 }
 
-impl PackageManager<'_> for Pacman {
+#[derive(Debug, Name)]
+pub struct Pacman<'a> {
+	/// Options to get translated from gene representation then passed to pacman
+	opts: PacmanOpts<'a>, // maybe ref instead?
+
+	/// Raw options to pass to pacman
+	raw_opts: Option<RawArgs<'a>>, // TODO: find some way to ref this
+}
+
+impl<'a> PackageManager<'a> for Pacman<'a> {
 	fn compile(&self) -> String {
-		let mut cmd = String::new();
-		if self.opts.sync {
-			cmd.push_str("-S ");
+		let mut cmd = String::from(&self.opts);
+		if let Some(raw_opts) = &self.raw_opts {
+			cmd.push_str(&raw_opts.to_string());
 		}
-		if self.opts.install {
-			cmd.push_str("-S ");
-		}
-		if self.opts.remove {
-			cmd.push_str("-R ");
-		}
-		if self.opts.update {
-			cmd.push_str("-S ");
-		}
-		if self.opts.upgrade {
-			cmd.push_str("-U ");
-		}
-		cmd.push_str(&self.raw_opts);
 		cmd
 	}
 }
+
+impl<'a> Pacman<'a> {
+	// TODO: improvise
+	pub fn new(opts: PacmanOpts<'a>, raw_opts: Option<RawArgs<'a>>) -> Self {
+		Self {
+			opts,
+			raw_opts,
+		}
+	}
+}
+
+/// Options struct to pass to [`Pacman`]
+///
+/// # Examples
+///
+/// ```
+/// # use gene_pmm::spm::pacman::PacmanOpts;
+/// # fn main() {
+/// let mut opts = PacmanOpts::new();
+/// opts.sync = true;
+/// # }
+/// ```
+#[derive(Debug)]
+pub struct PacmanOpts<'a> {
+	/// Package name(s) for action
+	pub packages: &'a Vec<String>,
+
+	/// Sync packages
+	pub sync: bool,
+
+	/// Remove packages
+	pub remove: bool,
+
+	/// Update packages
+	pub update: bool,
+}
+
+/// Convert Self into cmd
+impl<'a> From<&PacmanOpts<'a>> for String {
+	fn from(opts: &PacmanOpts) -> Self {
+		let mut cmd = String::new();
+		if opts.sync {
+			cmd.push_str("-S ");
+		}
+		if opts.remove {
+			cmd.push_str("-R ");
+		}
+		if opts.update {
+			cmd.push_str("-S ");
+		}
+		cmd
+	}
+}
+
+impl<'a> PacmanOpts<'a> {
+	// TODO: impl Default::default()
+	pub fn new(packages: &'a Vec<String>) -> Self {
+		Self {
+			packages,
+			sync: false,
+			remove: false,
+			update: false,
+		}
+	}
+
+	pub fn sync(mut self) -> Self {
+		self.sync = true;
+		self
+	}
+
+	pub fn remove(mut self) -> Self {
+		self.remove = true;
+		self
+	}
+
+	pub fn update(mut self) -> Self {
+		self.update = true;
+		self
+	}
+}
+
+/******************************
+	ADVANCED OPTIONS: TODO
+******************************/
 
 /// Applies to -Q
 struct QueryOpts {
@@ -467,12 +533,3 @@ struct UpgradeOpts {
 	print_format: String,
 }
 
-
-impl Pacman {
-	pub fn new() -> Self {
-		Self {
-			opts: PacmanOpts::default(),
-			raw_opts: String::new(),
-		}
-	}
-}
