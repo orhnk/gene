@@ -48,7 +48,6 @@ paket yöneticisi için aynı standart `<kütüphane>-devel` şeklinde belirlenm
 geliştiricisi [Daniel Stenberg](https://en.wikipedia.org/wiki/Daniel_Stenberg) İsveç Polhem Ödülü kazandıran [`cURL`](https://en.wikipedia.org/wiki/CURL) yazılımı,
 `APT` paket yöneticisi için `libcurl` `YUM` paket yöneticisi için `curl-devel` olarak adlandırılmıştır.
 
-
 Kullanıcıların bu tarz sorunlarla karşılaşmaması için geliştirdiğimiz GENE Paket Yöneticisi, paket yöneticileri
 arasındaki farklılıkları soyutlayarak ([abstraction principle](https://en.wikipedia.org/wiki/Abstraction_principle_(computer_programming))) ortadan kaldırmayı hedeflemektedir.
 
@@ -58,6 +57,8 @@ hedeflemektedir.
 
 Ayrıca paket yöneticilerinin komutlarını standartlaştırarak kullanıcıların farklı sistemler arasında geçiş yaparken
 paketi indirme, güncelleme, kaldırma gibi komutları yeniden öğrenmesinin önüne geçmeyi hedeflemektedir.
+
+> ANAHTAR KELIMELER: paket yöneticisi, soyutlama, cross platform, standartlaştırma
 
 ## Proje Özeti son
 
