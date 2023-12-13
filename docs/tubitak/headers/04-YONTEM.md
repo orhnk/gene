@@ -38,6 +38,8 @@ GENE Ekosistemini geliştirmek için Rust programlama dilini kullandık.
 - Strong Pattern Matching idioms
 - Semi-functional approach
 
+Rust yarı fonksiyonel bir programlama dili olduğundan [bkz. data/figures/programming-languages-classification]
+
 ### Eskiye Uyumlu (Backward Compatiblity)
 
 Rust programlama dili büyük ve genişleyen kominitesi ile genel programlama dillerinin karşılaştığı bir
