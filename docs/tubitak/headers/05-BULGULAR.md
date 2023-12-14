@@ -4,6 +4,7 @@
 
 ## GPacR Kayıt Sistemini Otomatik Güncelleme
 
+
 ## Standardalizasyon Konusunda ortaya çıkan bazı sorunlar
 
 Aynı yazılım paketi, bütün işletim sistemlerinde aynı olmak zorunda değil.

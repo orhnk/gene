@@ -75,6 +75,8 @@ Rust, LLVM Derleyici altyapısını temel alan bir programlama dilidir. Bu sayed
 - Güçlü tür sistemi, programcıların daha az hata yapmasını sağlar.
 - Kolay çapraz derleme, programcıların yazdıkları programları farklı işletim sistemlerinde çalışmasına olanak sağlar.
 
+Rust yarı fonksiyonel bir programlama dili olduğundan [bkz. data/figures/programming-languages-classification]
+
 ### Eskiye Uyumlu (Backward Compatiblity)
 
 Rust programlama dili büyük ve genişleyen kominitesi ile genel programlama dillerinin karşılaştığı bir
