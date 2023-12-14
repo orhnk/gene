@@ -6,6 +6,8 @@
 
 ## Paket isimleri bulunma yüzdesi
 
+- Grafik ve Tablolama
+
 ## GPacR Kayıt Sistemini Otomatik Güncelleme
 
 - Performans kayıtları
