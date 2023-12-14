@@ -3,7 +3,7 @@
 > Giriş, araştırma konusu hakkında yapılmış araştırmaların sonuçlarının ve bu alanda cevapsız olan soruların bilimsel
 > makalelere dayandırılarak anlatıldığı (kaynak taraması) bölümdür.
 
-GENE, projesi yapılan derin literatür araştırması sonucunda 
+[//]: # (GENE, projesi yapılan derin literatür araştırması sonucunda benzersiz bir proje olarak ortaya çıkmıştır.)
 
 ## WhoHas
 
@@ -12,7 +12,8 @@ kayıt sistemlerine erişerek sizin aradığınız paket isminin hangi paket yö
 gösterir.
 
 WhoHas ile GENE arasındaki temel fark, WhoHas aradığınız paketin hangi işletim sistemine ait olduğunu söylerken
-bulunan paketin sisteminize indirilmesi hakkında fayda sağlamaz. GENE ise aradığınız paketin sizin sisteminizdeki kaydını bulup indirir.
+bulunan paketin sisteminize indirilmesi hakkında fayda sağlamaz. GENE ise aradığınız paketin sizin sisteminizdeki
+kaydını bulup indirir.
 
 WhoHas, kullanıcıdan aldığı girdiyi sorguladığı için kimi durumlarda GENE'nin deterministik altyapısının indirdiği
 paketleri bulamayabilir. Bu problemin temel sebebi, `whohas` programının paket kayıt sistemlerin
