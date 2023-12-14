@@ -5,6 +5,12 @@
 
 [//]: # (GENE, projesi yapılan derin literatür araştırması sonucunda benzersiz bir proje olarak ortaya çıkmıştır.)
 
+## Pkgs.org
+
+> [pkgs.org](https://pkgs.org/)
+
+Genel Linux ve BSD paket kayıt sistemlerini tek bir yerde sorgulamak için geliştirilmiş bir web sitesidir.
+
 ## WhoHas
 
 WhoHas, Sistemler arası paket sorgulama aracıdır. Kendisi bir paket yöneticisi değildir. Sadece paket yöneticilerinin
