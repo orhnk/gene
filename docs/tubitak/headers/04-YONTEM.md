@@ -3,7 +3,6 @@
 > Araştırma yönteminin, veri toplama araçlarının, deney ve gözlem düzeneklerinin ve verilerin analiz yönteminin
 > verildiği bölümdür.
 
-## Rust Programlama Dili
 
 GENE Ekosistemini geliştirmek için Rust programlama dilini kullandık.
 
@@ -31,20 +30,22 @@ ile gelmesiydi.
 
 [//]: # (- Rust programlama dilinin endüstriyel standardı olması)
 
-[//]: # (- Yanking veya anlamsal versiyonlama &#40;semver&#41; gibi sistemlerin sağladığı bakım &#40;maintenance&#41; kolaylığı.)
+[//]: # (- Yanking veya anlamsal versiyonlama &#40;semver&#41; gibi sistemlerin sağladığı sürdürülebilirlik &#40;maintenance&#41; kolaylığı.)
 
 [//]: # (- Yerel derleme ile otomatik özellik yönetimi)
 
 [//]: # (- Çoklu paradigma ile paket yönetimi &#40;örneğin `cargo expand`, `cargo watch`, `cargo add` gibi&#41;)
 
-Rust'ın standart paket yöneticisi olan Cargo, GENE'nin geliştirme, bakım ve dağıtım süreçlerde büyük kolaylık
+Rust'ın standart paket yöneticisi olan Cargo, GENE'nin geliştirme, bakım, sürdürülebilirlik ve dağıtım süreçlerde büyük
+kolaylık
 sağlamıştır.
 Başlıca sistem programlama dilleri arasında sık karşılaşılan standart olmayan paket yöneticileri [C/C++ vcpkg canon]
 yerine Rust'ın standart
 olarak belirlediği Cargo, diğer sistem programlama dilleri ile karşılaştırıldığında daha kolay kullanılabilir bir
 yapılandırma sistemine sahiptir.
 
-Proje geliştirme sürecinde cargo'nun kullandığı semantik versiyonlama (semver), yanking gibi sistemlerin sağladığı bakım
+Proje geliştirme sürecinde cargo'nun kullandığı semantik versiyonlama (semver), yanking gibi sistemlerin sağladığı
+sürdürülebilirlik
 (maintenance) kolaylığı ile birlikte yerel derleme (local compilation) ile otomatik özellik yönetimi (feature
 management)
 ve ya plugin yönetimi (plugin management) gibi özellikler sayesinde GENE projesini geliştirirken kolaylık sağlamıştır.
@@ -254,7 +255,8 @@ resmi anlamda sunarak rust programlarının eski derleyiciler ile kullanılabile
 ## Git Versiyon Kontrol Sistemi - VCS (Version Control System)
 
 GENE projesinin mekandan bağımsız ve eş zamanlı geliştirilebilmesi için bir organizasyon sistemine ihtiyaç duyduk.
-Projeyi geliştirirken, bakım (maintenance), geliştirme, test, dağıtım gibi pek çok aşamada işimizi kolaylaştırması adına
+Projeyi geliştirirken, sürdürülebilirlik (maintenance), geliştirme, test, dağıtım gibi pek çok aşamada işimizi
+kolaylaştırması adına
 endüstriyel standartlardan birisi olan Git Versiyon Kontrol sistemini kullandık.
 
 Sıkıntı takipçisi (issue tracker), kod incelemesi (code review), özellik istekleri (feature request), wiki gibi
@@ -271,7 +273,90 @@ konulara dikkat etmek gerekir. Bu sebeple JetBrains IDE'lerini her yerde kullanm
 ileri düzeyde etkili araç entegrasyonları (Git, GitHub, DB, JetBrains AI, Github Copilot ...), güçlü grafiksel arayüz
 tasarımı (GUI) ve yeniden düzenleme (refactoring) araçları ile konfigüre edip GENE projesini geliştirmek için kullandık.
 
+# GENE
+
+GENE, geliştirilmeye açık olarak tasarlanmak istenildiğinden temel programlama prensiplerine uygun olarak
+temiz bir kod tabanı (code base) ile geliştirilmesi planlanmıştır. Bunun için Endişelerin ayrılması ile (Separation of
+Concerns) doğru miktarda uyum ve bağlantı (cohesion & coupling) gibi pek çok programlama prensibine uygun olarak
+tasarlanmıştır.
+
+Örneğin Uyum ve Bağlantı (Cohesion & Coupling) prensibine uygun olan ve olmayan sistem modellemeleri figür 5'te
+gösterilmiştir. Karışık ve uyumsuz sistem modellemeleri, programcıların kodlarına müdahale etmesini zorlaştırdığından
+projemizin geliştirilme ivmesini düşüreceğinden GENE, geliştirilirken programlama prensiplerine bağlı kalınmıştır
+
+![figür 5](..%2Fdata%2Ffigures%2Fimg.png)
+
+> TODO: read-em-all
+> > Kaynaklar: https://en.wikipedia.org/wiki/Category:Programming_principles
+> > https://en.wikibooks.org/wiki/Computer_Programming_Principles
+> > https://www.artima.com/weblogs/viewpost.jsp?thread=331531
+> > https://github.com/webpro/programming-principles
+>
+> > https://halilsafakkilic.com/soc
+
+## GPacR
+
+> Pronounced as "Gee-Packer"
+
+> GENE Paket Kayıt Sistemi
+
+GENE projesini geliştirirken, paket yöneticileri arasındaki farklılıkları
+soyutlayarak ([abstraction principle](https://en.wikipedia.org/wiki/Abstraction_principle_(computer_programming)))
+ortadan kaldırmayı hedefler.
+Bunun için GENE dahilinde bir paket kayıt sistemi geliştirdik. Bu sistem,
+hafızasındaki paketleri veritabanında gerekli bilgiler ile beraber ulaşılması
+tasarruflu olacak biçimde tutarak GENE'yi kullanılabilir kılar.
+
+
+> NOTE: Add more notes upon the topic here +algorithm_schema +performance_schema
+
+## GTWIN
+
+> Pronounced as "Gee-Twin"
+
+> GENE çift yönlü tercüme (GENE Two-Way InterpretatioN)
+
+GENE programının yeni bir standart oluşturmadan diğer standartları anlaması için geliştirilmiş olan
+çift yönlü tercüman modülüdür. Bu modül, Paket Yöneticilerinin eymleri için belirlediği komutların
+hepsini anlayarak GENE'nin paket kayıt sistemine dahil etmesini sağlar.
+
+## GPmGet
+
+> GENE Paket Yükleme Aracı
+
+Her paket her kayıt sisteminde yer almadığından dolayı kimi paketleri sisteminize indiremeyebilirsiniz.
+Böyle bir durumda GPmGet, GENE'nin paket kayıt sistemine dahil olmayan paketleri altyapı olarak başka bir yönetici
+kullanmanıza olanak sağlar.
+
+## GonfiG
+
+> GENE Konfigürasyon Menajeri
+
+GENE programının konfigürasyonlarını yönetmek için geliştirilmiş olan modüldür. GonfiG, GENE'nin konfigürasyon
+verilerini
+sistemler arası (cross platform) kusursuz çalışacak şekilde yönetir.
+
+## GPluG
+
+> GENE Eklenti Yöneticisi
+
+GENE programının eklentilerini yönetmek için geliştirilmiş olan modüldür. GPluG, GENE'nin eklentilerini
+indirme, kaldırma, güncelleme gibi işlemlerin yanı sıra eklentilerin GENE'ye entegre olmasını ve belirli altyapıların
+GENE ile senkronizasyonunu sağlar.
+
+[//]: # (## GDocs)
+
+[//]: # ()
+
+[//]: # (> GENEl Paket Yöneticisi Dökümantasyonu)
+
+[//]: # ()
+
+[//]: # (GENE sistem dökümantasyonudur. Ektra ilgi duyan kişilerin okuması için geliştirilmiştir çünkü GENE, yeni bir şey öğrenmeden)
+
+[//]: # (kullanılabilir bir programdır)
+
 # Ekler
 
-Github: https://en.wikipedia.org/wiki/GitHub
+GitHub: https://en.wikipedia.org/wiki/GitHub
 Rust as a functional lang: https://kerkour.com/rust-functional-programming
