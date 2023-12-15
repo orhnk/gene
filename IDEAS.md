@@ -5,6 +5,18 @@
 - [Two-Way Interpretation](#two-way-interpretation) of package manager scripts (e.g. `apt-get` and `pacman`) with
   automated [name patching](#name-patching)
 
+## 15.12.2023
+
+- Easy way of publishing packages through GENE. Just like cross compiling in rust
+  `gene --publish .` but this feature would require a lot of work.
+
+> Some Package Manager problems
+>
+> - devel packages not being separate
+> - version mismatch
+> - non-existent packages
+> - different packages with the same name (eg rename vs perl-rename)
+
 ## Dictionary
 
 ### Name Patching
