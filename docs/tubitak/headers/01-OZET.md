@@ -29,7 +29,7 @@ yaparken adaptasyon sorunları ile karşılaşmalarına ve zaman kaybetmelerine 
 Bunun yanında manuel indirilen yazılımlar için bağımlılık yönetimi, güncelleme, kaldırma gibi
 işlemler kullanıcılar için zorluklar içermektedir.
 
-Bu bağlamda [dpkg](https://en.wikipedia.org/wiki/Dpkg) temmeli [`APT`](https://en.wikipedia.org/wiki/APT_(software))
+Bu bağlamda [dpkg](https://en.wikipedia.org/wiki/Dpkg) temelli [`APT`](https://en.wikipedia.org/wiki/APT_(software))
 paket yöneticisi için kütüphane paketlerinin adlandırma standardı
 `lib<kütüphane adı>` iken [RPM](https://en.wikipedia.org/wiki/RPM_Package_Manager)
 temelli [YUM](https://en.wikipedia.org/wiki/Yum_(software)) paket yöneticisi için aynı standart `<kütüphane>-devel`
@@ -62,10 +62,10 @@ arasındaki farklılıkları
 soyutlayarak ([abstraction principle](https://en.wikipedia.org/wiki/Abstraction_principle_(computer_programming)))
 ortadan kaldırmayı hedeflemektedir.
 
-GENE, kullanıcı paketleri hakkında gerekli biygileri kayıt etme amacıyla GPacR (Generic PACkage Registry) adını
+GENE, kullanıcı paketleri hakkında gerekli bilgileri kayıt etme amacıyla GPacR (Generic PACkage Registry) adını
 verdiğimiz kendi paket kayıt sistemini kullanmaktadır.
 
-GPacR kayıt sisteminin yeni geliştirilen paketlere adapte olmasını kolaylaştırmak için paket kayıt sistemini
+GPacR kayıt sisteminin yeni geliştirilen paketlere adapte olmasını kolaylaştırmak ve paket kayıt sistemini
 güncellemek için bir otomasyon sistemi geliştirdik. Bu sistem, paketleri agresif bir elemeden geçiren yüksek
 performanslı
 bir algoritma kullanır. Bu algoritma sayesinde belirli aralıklarla güncellenen GPacR etkin ve tasarruflu bir biçimde
