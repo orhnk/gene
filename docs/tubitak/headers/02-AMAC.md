@@ -62,22 +62,47 @@ Aşağıdaki tabloda popüler paket yöneticilerinin basit eylemler için kullan
 | `Portage`        | `emerge <paket>`         | `emerge --update <paket>`  | `emerge --search <paket>` | `emerge --unmerge <paket>` | [//]: # (Validate)
 
 ```text
-  .--------------.--------------.                        
-  | NIX (Bundle) | texliveSmall |-.                        
-  '--------------'--------------' |                             .---------.---------.
-  .------------.--------------.   |                          .--| WINDOWS |         |  
-  |            |      bar     |-+ |                          |  '---------'---------'
-  '------------'--------------' | |     .-------------.      |  .---------.---------.
-                                +-+-----|    GENE     |------+--|  LINUX  |         |           
-  .------------.--------------. |       '-------------'      |  '---------'---------'
-  |            |      baz     |-+                            |  .---------.---------.
-  '------------'--------------' |                            '--|  MACOS  |         |                                                   
-  .------------.--------------. |                              '---------'---------'
-  |    Scoop   |     ***      |-'
-  '------------'--------------'
+  .-----------------.-------.                        
+  | simdjson v3.6.0 | NixOS |------------------------.                        
+  '-----------------'-------'                        |    
+  .-----------------.--------------.               |            
+  | simdjson v3.6.0 | Alpine Linux |------------+ |                       
+  '-----------------'--------------'             | |                           .---------.---------.
+  .-----------------------------------------.----------------.    | |                        .--| WINDOWS |         |  
+  | libsimdjson-devel-3.6.2-alt1.x86_64.rpm | Classic x86_64 |--+ | |                        |  '---------'---------'
+  '-----------------------------------------'----------------'  | | |   .-------------.      |  .---------.---------.
+                                                                +-+-+---|    GENE     |------+--|  LINUX  |         |           
+  .-----------------------------------.-------------------.     | | |   '-------------'      |  '---------'---------'
+  | libsimdjson-dev_3.0.1-1_arm64.deb | Debian Main arm64 |-----+ | |                        |  .---------.---------.
+  '-----------------------------------'-------------------'       | |                        '--|  MACOS  |         |                                                   
+  .----------------------------------------.---------------.      | |                           '---------'---------'
+  | simdjson v[1] | Fedora x86_64 |------+ |
+  '----------------------------------------'---------------'        |
+  .------------------------.-----------------------.       |
+  | libsimdjson-dev v3.0.1 | Debian |-------' 
+  '------------------------'-----------------------'
+  .-----------------.----------.       |
+  | simdjson v3.6.3 | homebrew |-------' 
+  '-----------------'----------'
+  .--------------------------.---------.       |
+  | dev-libs/simdjson v3.6.3 | Portage |-------' 
+  '--------------------------'---------'
+  .---------------------------------.-----------------------.       |     [1]: Fedora Rawhide	3.6.3-1.fc40	-	-
+  | libsimdjson16_3.2.1-1_amd64.deb | Ubuntu Universe amd64 |-------'          Fedora 39     	3.1.0-2.fc39
+  '---------------------------------'-----------------------'                  Fedora 38	    3.1.0-1.fc38
+
 ```                                     
 
 ## Kaynaklar
+
+- simdjson:
+	- https://pkgs.org/search/?q=simdjson
+	- https://search.nixos.org/packages?channel=unstable&show=simdjson&from=0&size=50&sort=relevance&type=packages&query=simdjson
+	- https://pkgs.org/search/?q=simdjson
+ 	- https://pkgs.alpinelinux.org/packages?name=simdjson&branch=edge&repo=&arch=&maintainer=
+  	- https://formulae.brew.sh/formula/simdjson#default
+  	- https://scoop.sh/#/apps?q=simdjson
+  	- https://packages.debian.org/search?suite=bookworm&section=all&arch=any&searchon=names&keywords=simdjson
 
 https://pkgs.org/search/?q=curl
 
