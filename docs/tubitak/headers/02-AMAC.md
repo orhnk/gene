@@ -1,6 +1,10 @@
 # AMAÇ
 
-> Bu bölümde doğrudan projenin amacına, somut hedeflerine ve Ar-Ge içeriğine odaklanılmalıdır. Önerilen proje konusunun çözülmesi gereken ya da önceden çalışılmış aydınlatılması gereken bir problem olup olmadığı, hangi eksikliği nasıl gidereceği veya hangi sorunlara çözüm getireceği açıklanmalıdır. Hazırlanan projenin ilgili olduğu alanlarda uzman kişilere sunulacağı dikkate alınarak değerlendirmeye hiçbir katkı sağlamayacak genel konu ve tarihçe anlatımlarından kaçınılmalıdır.
+> Bu bölümde doğrudan projenin amacına, somut hedeflerine ve Ar-Ge içeriğine odaklanılmalıdır. Önerilen proje konusunun
+> çözülmesi gereken ya da önceden çalışılmış aydınlatılması gereken bir problem olup olmadığı, hangi eksikliği nasıl
+> gidereceği veya hangi sorunlara çözüm getireceği açıklanmalıdır. Hazırlanan projenin ilgili olduğu alanlarda uzman
+> kişilere sunulacağı dikkate alınarak değerlendirmeye hiçbir katkı sağlamayacak genel konu ve tarihçe anlatımlarından
+> kaçınılmalıdır.
 
 GENE Paket Yöneticilerini standart bir zemine oturtmayı amaçlamaktadır.
 Farklı Paket Yöneticilerinin paket isimlendirme sistemleri bir standarda uymadığından dolayı
@@ -39,6 +43,8 @@ Bu sayede yeni bir döküman okumanıza gerek kalmadan istediğiniz paket yönet
 '-------------'       '-------------'       '------------------'       '--------------'        '---------------'
 ```
 
+Aşağıdaki tabloda popüler paket yöneticilerinin basit eylemler için kullandıkları komutlar bulunmaktadır.
+
 | Paket Yöneticisi | İndirme Komutu           | Güncelleme Komutu          | Sorgulama Komutu          | Silme Komutu               |
 |:-----------------|:-------------------------|:---------------------------|:--------------------------|:---------------------------|
 | `APT`            | `apt install <paket>`    | `apt upgrade <paket>`      | `apt search <paket>`      | `apt remove <paket>`       |
@@ -54,8 +60,6 @@ Bu sayede yeni bir döküman okumanıza gerek kalmadan istediğiniz paket yönet
 | `Xbps`           | `xbps-install <paket>`   | `xbps-install -Su <paket>` | `xbps-query -Rs <paket>`  | `xbps-remove <paket>`      |
 | `RPM`            | `rpm -i <paket>`         | `rpm -U <paket>`           | `rpm -qf <paket>`         | `rpm -e <paket>`           |
 | `Portage`        | `emerge <paket>`         | `emerge --update <paket>`  | `emerge --search <paket>` | `emerge --unmerge <paket>` | [//]: # (Validate)
-
-
 
 ```text
   .------------.--------------.                        
@@ -77,3 +81,20 @@ Bu sayede yeni bir döküman okumanıza gerek kalmadan istediğiniz paket yönet
 
 https://github.com/ScoopInstaller/Scoop/issues/897
 https://apple.stackexchange.com/questions/56419/how-can-i-update-everything-installed-through-homebrew-after-osx-upgrade
+
+- Nix Paket Yöneticisi
+  komutları: https://www.mankier.com/1/nix-env https://github.com/brainrake/nixos-tutorial/blob/master/cheatsheet.md
+- Pacman Paket Yöneticisi komutları: https://devhints.io/pacman
+- HomeBrew Paket Yöneticisi
+  komutları: https://devhints.io/homebrew https://stackoverflow.com/questions/8833230/how-do-i-find-a-list-of-homebrews-installable-packages
+- Chocolatey Paket Yöneticisi
+  komutları: https://gist.github.com/yunga/ https://docs.chocolatey.org/en-us/choco/commands/upgrade https://docs.chocolatey.org/en-us/choco/commands/uninstall
+- Scoop Paket Yöneticisi komutları: https://github.com/ScoopInstaller/Scoop/wiki/Commands
+- Yum Paket Yöneticisi
+  komutları: https://access.redhat.com/sites/default/files/attachments/rh_yum_cheatsheet_1214_jcs_print-1.pdf
+- Dnf Paket Yöneticisi komutları: https://docs.fedoraproject.org/en-US/quick-docs/dnf/
+  [//] # (- RPM Paket Yöneticisi
+  komutları: https://www.golinuxcloud.com/rpm-command-in-linux/ https://access.redhat.com/solutions/1189)
+- Zypper Paket Yöneticisi komutları: https://www.maketecheasier.com/cheatsheet/zypper-package-manager/
+- APK Paket Yöneticisi komutları: https://wiki.alpinelinux.org/wiki/Alpine_Linux_package_management
+- Xbps Paket Yöneticisi komutları: https://docs.voidlinux.org/xbps/index.html

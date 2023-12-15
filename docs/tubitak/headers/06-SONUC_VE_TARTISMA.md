@@ -13,4 +13,6 @@ paket yönetisinden bağımsız hale getirmiştir.
 
 ## GENE Ne kadar işlevli?
 
+### Yüksek paket eşleştirme oranı
+
 ## GPacR özgün mü?
