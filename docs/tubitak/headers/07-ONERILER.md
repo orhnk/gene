@@ -2,6 +2,10 @@
 
 > Bu bölümde benzer çalışmalar yapacak olanlara yol göstermesi bakımından öneriler varsa belirtilir.
 
+## Yeni Bir Paket Yöneticisi
+
+Standardalizasyon aşamalarının 
+
 ## Sistemler arası paket standardının zorluğu
 
 ## GPacR'ın geliştirilmesi

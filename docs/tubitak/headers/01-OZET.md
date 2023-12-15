@@ -19,17 +19,31 @@ Paket yöneticilerinin sağladıkları faydalar sebebiyle günümüzde pek çok 
 tipleri bulunmaktadır.
 
 Farklı paket yöneticilerinin farklı komutları, farklı dökümanları, farklı paket kayıt sistemleri
-hatta farklı paket adlandırma standartları olması, kullanıcıların farklı işletim sistemleri arasında geçiş
-yaparken karşılaştıkları sorunlardan birisidir. Bunun yanında manuel indirilen yazılımlar için bağımlılık
-yönetimi, güncelleme, kaldırma gibi işlemler kullanıcılar için zorluklar içermektedir.
+hatta farklı paket adlandırma standartları olması, kullanıcıların işletim sistemleri arasında geçiş
+yaparken adaptasyon sorunları ile karşılaşmalarına ve zaman kaybetmelerine sebep olmaktadır.
+Bunun yanında manuel indirilen yazılımlar için bağımlılık yönetimi, güncelleme, kaldırma gibi
+işlemler kullanıcılar için zorluklar içermektedir.
 
 Bu bağlamda [dpkg](https://en.wikipedia.org/wiki/Dpkg) temmeli [`APT`](https://en.wikipedia.org/wiki/APT_(software)) paket yöneticisi için kütüphane paketlerinin adlandırma standardı
-`lib<kütüphane adı>` iken [RPM](https://en.wikipedia.org/wiki/RPM_Package_Manager) temelli [YUM](https://en.wikipedia.org/wiki/Yum_(software))
-paket yöneticisi için aynı standart `<kütüphane>-devel` şeklinde belirlenmiştir. Buna örnek olarak dünya üzerinde en çok indirilen program ünvanını taşıyan ve [//] # (Validate this information)
-geliştiricisi [Daniel Stenberg](https://en.wikipedia.org/wiki/Daniel_Stenberg)'e İsveç Polhem Ödülü kazandıran [`cURL`](https://en.wikipedia.org/wiki/CURL) yazılımı,
-`APT` paket yöneticisi için `libcurl` `YUM` paket yöneticisi için `curl-devel` olarak adlandırılmıştır.
+`lib<kütüphane adı>` iken [RPM](https://en.wikipedia.org/wiki/RPM_Package_Manager) temelli [YUM](https://en.wikipedia.org/wiki/Yum_(software)) paket yöneticisi için aynı standart `<kütüphane>-devel`
+şeklinde belirlenmiştir. Örnek olarak günümüz network protokolleri arasında veri aktarımı için kullanılan standart
 
-Aynı Şekilde sistemler arası temel paket adlandırmaları arasındaki farklar da kullanıcıların indirmek istedikleri
+[//]: # (dünya üzerinde en çok indirilen program ünvanını taşıyan ve [//] # &#40;Validate this information&#41;)
+
+[//]: # (geliştiricisi [Daniel Stenberg]&#40;https://en.wikipedia.org/wiki/Daniel_Stenberg&#41;'e İsveç Polhem Ödülü kazandıran)
+
+[`Client for URL (cURL)`](https://en.wikipedia.org/wiki/CURL) yazılımı,
+`APT` paket yöneticisi için `libcurl`, `YUM` paket yöneticisi için `curl-devel` olarak adlandırılmıştır. 
+
+[//]: # (better example for a better demo. ~Rhetoric)
+
+[//]: # (Bu gibi isim farklılıkları curl programını indirmek isteyen birisinin kafasını karıştırabilir. Özellikle ünlü olmayan)
+
+[//]: # (yazılımlarda sık karşılaşılan bir problem olan isim farklılıkları, kullanıcılara paket indirme ve kurma konusunda)
+
+[//]: # (sıkıntılar oluşturmaktadır.)
+
+Aynı Şekilde sistemler arası standartlara bağlı olmayan temel paket adlandırmaları arasındaki farklar da kullanıcıların indirmek istedikleri
 paketleri bulmalarını zorlaştırmaktadır. Örneğin APT paket yöneticisi kaydında çok yaygın olarak kullanılan [`make`](https://en.wikipedia.org/wiki/Make_(software)) yapılandırma
 sistemi paketinin adı `make` iken Nix paket yöneticisi kaydında aynı paketin adı `gnumake`'dir. Bu gibi durumlar program geliştirirken hız ve üretkenlik kaybına sebep olur.
 
@@ -52,3 +66,7 @@ kullandığınız komutları kodların çalıştığı sistemin anlayacağı hal
 GENE'nin bu yaklaşımının temel sebebi yeni bir standart oluşturmadan var olan standartları birleştirmektir.
 
 > ANAHTAR KELIMELER: paket yöneticisi, soyutlama, cross platform, standartlaştırma
+
+## Kaynaklar
+
+https://en.wikipedia.org/wiki/CURL

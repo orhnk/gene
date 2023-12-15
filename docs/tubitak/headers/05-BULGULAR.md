@@ -2,6 +2,8 @@
 
 > Çalışmada toplanan veriler ve verilere ait analiz sonuçları verilir.
 
+## 
+
 ## GPacR Kayıt Sistemini Otomatik Güncelleme
 
 
