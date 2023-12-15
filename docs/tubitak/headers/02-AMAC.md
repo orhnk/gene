@@ -62,22 +62,24 @@ Aşağıdaki tabloda popüler paket yöneticilerinin basit eylemler için kullan
 | `Portage`        | `emerge <paket>`         | `emerge --update <paket>`  | `emerge --search <paket>` | `emerge --unmerge <paket>` | [//]: # (Validate)
 
 ```text
-  .------------.--------------.                        
-  |     NIX    | texliveSmall |-.                        
-  '------------'--------------' |                                .---------.---------.
-  .------------.--------------. |                            .--| WINDOWS |         |  
-  |            |      bar     |-+                            |  '---------'---------'
-  '------------'--------------' |       .-------------.      |  .---------.---------.
-                                ++------|    GENE     |------+--|  LINUX  |         |
+  .--------------.--------------.                        
+  | NIX (Bundle) | texliveSmall |-.                        
+  '--------------'--------------' |                             .---------.---------.
+  .------------.--------------.   |                          .--| WINDOWS |         |  
+  |            |      bar     |-+ |                          |  '---------'---------'
+  '------------'--------------' | |     .-------------.      |  .---------.---------.
+                                +-+-----|    GENE     |------+--|  LINUX  |         |           
   .------------.--------------. |       '-------------'      |  '---------'---------'
   |            |      baz     |-+                            |  .---------.---------.
   '------------'--------------' |                            '--|  MACOS  |         |                                                   
   .------------.--------------. |                              '---------'---------'
-  |            |    another   |-'
+  |    Scoop   |     ***      |-'
   '------------'--------------'
 ```                                     
 
 ## Kaynaklar
+
+https://pkgs.org/search/?q=curl
 
 https://github.com/ScoopInstaller/Scoop/issues/897
 https://apple.stackexchange.com/questions/56419/how-can-i-update-everything-installed-through-homebrew-after-osx-upgrade
