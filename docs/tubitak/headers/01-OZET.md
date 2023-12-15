@@ -23,8 +23,8 @@ python ile kod yazan olan herkesin sıkça kullandığı bir programdır.
 Paket yöneticilerinin sağladıkları faydalar sebebiyle günümüzde pek çok işletim sistemine uyarlanmış
 tipleri bulunmaktadır.
 
-Farklı paket yöneticilerinin farklı komutları, farklı dökümanları, farklı paket kayıt sistemleri
-hatta farklı paket adlandırma standartları olması, kullanıcıların işletim sistemleri arasında geçiş
+Farklı paket yöneticilerinin komutları, dökümanları, paket kayıt sistemleri
+hatta paket adlandırma standartları olması, kullanıcıların işletim sistemleri arasında geçiş
 yaparken adaptasyon sorunları ile karşılaşmalarına ve zaman kaybetmelerine sebep olmaktadır.
 Bunun yanında manuel indirilen yazılımlar için bağımlılık yönetimi, güncelleme, kaldırma gibi
 işlemler kullanıcılar için zorluklar içermektedir.
