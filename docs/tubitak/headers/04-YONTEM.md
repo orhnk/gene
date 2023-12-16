@@ -307,6 +307,60 @@ Bunun için GENE dahilinde bir paket kayıt sistemi geliştirdik. Bu sistem,
 hafızasındaki paketleri veritabanında gerekli bilgiler ile beraber ulaşılması
 tasarruflu olacak biçimde tutarak GENE'yi kullanılabilir kılar.
 
+```
+┌────────────────────────┐
+│         ...            ├─────┐
+└────────────────────────┘     │
+                               │
+┌────────────────────────┐     │
+│ Homebrew Kayıt Sistemi ├─────┤
+└────────────────────────┘     │
+                               │
+┌────────────────────────┐     │
+│ Scoop Kayıt Sistemi    ├─────┤
+└────────────────────────┘     │
+                               │
+┌────────────────────────┐     │  
+                                       ┌─evet──►
+paketi arşivle
+│ RedHat Kayıt Sistemi   ├─────┤  
+                                       │
+└────────────────────────┘     │  ┌────────┐
+  ┌───────────────────────┐  │
+                               ├──┤  GENE  ├──►│ Paket İsim Kümeleyici ├──┤
+Paket isimleri aynı mı?
+┌────────────────────────┐     │  └────────┘
+  └───────────────────────┘  │
+│ Debian Kayıt Sistemi   ├─────┤  
+                                       │
+  
+
+
+  ┌────────────────────────┐
+└────────────────────────┘     │                                          └─hayır─►│ Dereceli sınıflandırma │
+                               │                                           
+    
+  └─┬──────────────────────┘
+┌────────────────────────┐     │                                                     │
+│ Gentoo Kayıt Sistemi   ├─────┤                                                     │  ┌────────────────────────────────┐
+└────────────────────────┘     │                                                eğer ├─►│ paket anasayfaları aynı ise    │
+                               │                                                     │  │                                │
+┌────────────────────────┐     │                                                     │  │ paket açıklamaları aynı ise    │
+│ Arch User Repository   ├─────┤                                                     │  │                                ├───► paketleri arşivle
+└────────────────────────┘     │                                                     │  │ paket indirme kodları aynı ise │            ▲
+                               │                                                     │  │                                │            │
+┌────────────────────────┐     │                                                     │  │ ...                            │            │
+│ Nixpkgs                ├─────┘                                                     │  └────────────────────────────────┘            │
+└────────────────────────┘                                                           │                                                │
+                                                                                     │  ┌──────────────────────────────────┐          │
+                                                                             değilse └─►│ paket kaynak kodlarını analiz et │          │
+                                                                                        └─┬────────────────────────────────┘          │
+                                                                                          │                                           │
+                                                                                          ├─► Analize göre paketler aynı ise ─────────┘
+                                                                                          │
+                                                                                  değilse └─► Paketler farklı ──► Paketleri ayrı ayrı arşivle
+```
+
 
 > NOTE: Add more notes upon the topic here +algorithm_schema +performance_schema
 
