@@ -8,7 +8,7 @@
 
 Bir yazılımı sisteminize indirirken öncelikle kullandığınız paket yöneticisinin kayıt sistemindeki adını bilmeniz
 gerekmektedir. Bu paketlerin isimleri kayıt sistemlerine bağlı olarak değişkenlik gösterdiğinden yazılım geliştiricileri
-paket kimi paketlerin kurulumunu yaparken paket isimlerinin uyuşmazlığı sonucu sıkıntılar yaşamaktadır.
+kimi paketlerin kurulumunu yaparken paket isimlerinin uyuşmazlığı sonucu sorunlarla karşılaşmaktadır.
 
 GENE; paket yöneticilerindeki belirsizlikleri, yeni bir standart oluşturmadan tek boyuta indirgeyerek ortadan kaldırmayı
 amaçlamaktadır.
@@ -17,8 +17,8 @@ amaçlamaktadır.
 göre `curl-devel`, `libcurl`, `curl-dev`, `libcurl-devel`, `curl` adını almaktadır.
 
 Aynı durum paket yöneticilerinin kullanımı için de geçerlidir. Mesela `Pacman` paket yöneticisinde paketlerinizi
-güncellemek için `pacman -Syu` komutunu kullanırken `APT` paket yöneticisinde `apt upgrade` komutunu kullanırsınız. (
-admin yetkileri dahil edilmemiştir)
+güncellemek için `pacman -Syu` komutunu kullanırken `APT` paket yöneticisinde `apt upgrade` komutunu kullanırsınız.
+(admin yetkileri dahil edilmemiştir)
 
 GENE yazılımcıların günlük işlerinde sık karşılaştıkları bu tarz sıkınıntıların önüne geçmeyi hedeflemektedir.
 
@@ -26,7 +26,7 @@ Ancak paket yöneticilerinin komutlarını standartlaştırmak, yeni bir standar
 barındırdığından GENE yeni bir paketleme sistemi oluşturup bilgi kargaşası oluşturmak yerine var olan standartları
 anlamaya odaklıdır.
 
-figürde verildiği gibi GENE, bütün işletim sistemlerinin paket yöneticilerinin komutlarını anlayıp sizin sisteminize
+Figürde verildiği gibi GENE, bütün işletim sistemlerinin paket yöneticilerinin komutlarını anlayıp sizin sisteminize
 uyarlar. Bu sayede yeni bir döküman okumanıza gerek kalmadan istediğiniz paket yöneticisini kullanabilirsiniz
 
 ```text
@@ -42,7 +42,7 @@ uyarlar. Bu sayede yeni bir döküman okumanıza gerek kalmadan istediğiniz pak
 '-------------'       '-------------'       '------------------'       '--------------'        '---------------'
 ```
 
-Aşağıdaki tabloda popüler paket yöneticilerinin basit eylemler için kullandıkları komutlar bulunmaktadır.
+Aşağıdaki tabloda popüler paket yöneticilerinin basit eylemler için kullandıkları komutlar ve aralarındaki farklılıklar verilmiştir.
 
 | Paket Yöneticisi | İndirme Komutu           | Güncelleme Komutu          | Sorgulama Komutu          | Silme Komutu               |
 |:-----------------|:-------------------------|:---------------------------|:--------------------------|:---------------------------|
@@ -54,7 +54,7 @@ Aşağıdaki tabloda popüler paket yöneticilerinin basit eylemler için kullan
 | `Scoop`          | `scoop install <paket>`  | `scoop update <paket>`     | `scoop search <paket>`    | `scoop uninstall <paket>`  |
 | `Yum`            | `yum install <paket>`    | `yum update <paket>`       | `yum search <paket>`      | `yum remove <paket>`       |
 | `Dnf`            | `dnf install <paket>`    | `dnf update <paket>`       | `dnf search <paket>`      | `dnf remove <paket>`       |
-| `Zypper`		       | `zypper install <paket>` | `zypper update <paket>`    | `zypper search <paket>`   | `zypper remove <paket>`    |
+| `Zypper`	        | `zypper install <paket>` | `zypper update <paket>`    | `zypper search <paket>`   | `zypper remove <paket>`    |
 | `APK`            | `apk add <paket>`        | `apk upgrade <paket>`      | `apk search <paket>`      | `apk del <paket>`          |
 | `Xbps`           | `xbps-install <paket>`   | `xbps-install -Su <paket>` | `xbps-query -Rs <paket>`  | `xbps-remove <paket>`      |
 | `RPM`            | `rpm -i <paket>`         | `rpm -U <paket>`           | `rpm -qf <paket>`         | `rpm -e <paket>`           |
@@ -84,13 +84,13 @@ Aşağıdaki tabloda popüler paket yöneticilerinin basit eylemler için kullan
 ## Kaynaklar
 
 - simdjson:
-	- https://pkgs.org/search/?q=simdjson
-	- https://search.nixos.org/packages?channel=unstable&show=simdjson&from=0&size=50&sort=relevance&type=packages&query=simdjson
-	- https://pkgs.org/search/?q=simdjson
- 	- https://pkgs.alpinelinux.org/packages?name=simdjson&branch=edge&repo=&arch=&maintainer=
-  	- https://formulae.brew.sh/formula/simdjson#default
-  	- https://scoop.sh/#/apps?q=simdjson
-  	- https://packages.debian.org/search?suite=bookworm&section=all&arch=any&searchon=names&keywords=simdjson
+    - https://pkgs.org/search/?q=simdjson
+    - https://search.nixos.org/packages?channel=unstable&show=simdjson&from=0&size=50&sort=relevance&type=packages&query=simdjson
+    - https://pkgs.org/search/?q=simdjson
+    - https://pkgs.alpinelinux.org/packages?name=simdjson&branch=edge&repo=&arch=&maintainer=
+        - https://formulae.brew.sh/formula/simdjson#default
+        - https://scoop.sh/#/apps?q=simdjson
+        - https://packages.debian.org/search?suite=bookworm&section=all&arch=any&searchon=names&keywords=simdjson
 
 https://pkgs.org/search/?q=curl
 

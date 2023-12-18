@@ -12,7 +12,7 @@ Son yıllarda dijital dünya adına geliştirilen teknolojiler sayesinde program
 için [vi](https://en.wikipedia.org/wiki/Vi_(text_editor)) gibi metin editörleri kullanılırken günümüzde
 [JetBrains](https://www.jetbrains.com/) IDE'leri gibi ileri seviye araçlar kullanılmaktadır.
 
-Bu gelişmelerden etkilenen araçlardan birisi de paket yöneticileridir.
+Bu gelişmelerden etkilenen programlardan birisi de paket yöneticileridir.
 Amatör ya da profesyonel her yazılım geliştiricisinin kullandığı paket yöneticileri,
 herhangi bir programın kurulumu, güncellenmesi, kaldırılması gibi işlemleri basitleştirir.
 

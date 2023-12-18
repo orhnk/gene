@@ -179,38 +179,6 @@ Rust, LLVM Derleyici altyapısını temel alan bir programlama dilidir. Bu sayed
 
 ### Yeni Nesil Programlama
 
-[//]: # (- Algebraic Data Types)
-
-[//]: # (- Procuderal Macros)
-
-[//]: # (- Strong Pattern Matching idioms)
-
-[//]: # (- Semi-functional approach)
-
-[//]: # (- Strongly typed)
-
-[//]: # (- Easy Cross-compilation)
-
-[//]: # ()
-
-[//]: # (- Rust, yeni nesil programlama paradigmalarını destekler.)
-
-[//]: # (- Cebirsel Veri Tipleri &#40;Algebraic Data Types&#41;, fonksiyonel programlama dillerinin en önemli özelliklerinden biridir.)
-
-[//]: # (- Procedural Macros, makroların derleme zamanında çalışmasını sağlar. Bu sayede programcılar, makrolar ile kod tasarrufu)
-
-[//]: # (  yapabilirler.)
-
-[//]: # (- Güçlü desen eşleme &#40;pattern matching&#41; idiyomları, programcıların kodlarını daha okunabilir ve daha az hata ile)
-
-[//]: # (  yazmalarını sağlar.)
-
-[//]: # (- Yarı fonksiyonel yaklaşım, programcıların fonksiyonel programlama dillerindeki gibi fonksiyonları kullanmasını sağlar.)
-
-[//]: # (- Güçlü tür sistemi, programcıların daha az hata yapmasını sağlar.)
-
-[//]: # (- Kolay çapraz derleme, programcıların yazdıkları programları farklı işletim sistemlerinde çalışmasına olanak sağlar.)
-
 Rust yarı fonksiyonel bir programlama dili olduğundan [bkz. data/figures/programming-languages-classification]
 fonksiyonel programlama dillerinin sahip olduğu kısa ve okunabilir kod yapısına sahiptir.
 
@@ -220,30 +188,11 @@ Güçlü desen eşleme (pattern matching) idiyomları, programcıların kodları
 yazmalarını sağlamıştır.
 
 Güçlü (Strongly-typed) ve Cebirsel Veri Tipleri (Algebraic Data Types), fonksiyonel programlama dillerinde öne çıkan ve
-programın
-geliştirilmesinde çarpım türleri (product types) yerine toplam türleri (sum types) kullanarak daha temiz
-ve deyimsel (idiomatic) kod yazılmasını sağlayan bir programlama paradigmasıdır.
+programın geliştirilmesinde çarpım türleri (product types) yerine toplam türleri (sum types) kullanarak daha temiz ve
+deyimsel (idiomatic) kod yazılmasını sağlayan bir programlama paradigmasıdır.
 
 Rust derleyicisi (rustc) Çapraz derleme (cross-compilation) sayesinde yazdığımız programı farklı işletim sistemleri için
-derleyebilir, böylece kullanım kolaylığı sağlar.
-
-[//]: # (#### Makrolar)
-
-[//]: # ()
-
-[//]: # (Rust ile yazılmış programların çoğunda karşılaşacağınız makrolar, programcıların kodlarını daha okunabilir ve daha az)
-
-[//]: # (hata ile yazmalarını sağlar. Rust geniş ve güçlü bir makro sistemi kullandığından dolayı derleme-zamanı kod üretiminde)
-
-[//]: # (&#40;compile-time code generation&#41; oldukça yeteneklidir.)
-
-[//]: # ()
-
-[//]: # (Prosedürel &#40;procedural macros&#41; olarak, Türetici &#40;derive macros&#41; ve Atama &#40;attribute macros&#41; ve Fonksiyon tipi &#40;)
-
-[//]: # (function-like&#41; olmak üzere üç farklı makro)
-
-[//]: # (türü vardır.)
+derleyebilmesi, kullanım kolaylığı sağlamıştır.
 
 ### Eskiye Uyumlu (Backward Compatiblity)
 
@@ -252,26 +201,30 @@ problemle karşı karşıya kalmıştır. Örneğin Python2 ve Python3 arasında
 programlama forumları, kütüphaneler gibi pek çok açıdan büyük ses getirmiştir. Rust bu sorunun güvencesini
 resmi anlamda sunarak rust programlarının eski derleyiciler ile kullanılabileceğini kesinleştirmiştir.
 
-## Git Versiyon Kontrol Sistemi - VCS (Version Control System)
+## Git Versiyon Kontrol Sistemi (VCS - Version Control System)
 
 GENE projesinin mekandan bağımsız ve eş zamanlı geliştirilebilmesi için bir organizasyon sistemine ihtiyaç duyduk.
 Projeyi geliştirirken, sürdürülebilirlik (maintenance), geliştirme, test, dağıtım gibi pek çok aşamada işimizi
-kolaylaştırması adına
-endüstriyel standartlardan birisi olan Git Versiyon Kontrol sistemini kullandık.
+kolaylaştırması adına endüstriyel standartlardan birisi olan Git Versiyon Kontrol sistemini kullandık.
+
+## Github
+
+> Git hoster
 
 Sıkıntı takipçisi (issue tracker), kod incelemesi (code review), özellik istekleri (feature request), wiki gibi
 geniş çaplı projeler için gerekli olan yapıları oluşturacak ve Git ile entegre çalışacak bir barındırma servisi
 (host) olarak GitHub platformunu kullandık.
 
-## JetBrains IDE
+## JetBrains IDE ve VSCode
 
-GENE, IDE ve editör sektöründe profesyonel yazılımcıların önerdiği JetBrains temelli RustRover ve CLion IDE'leri
-kullanılarak geliştirilmiştir.
+GENE, IDE ve editör sektöründe profesyonel yazılımcıların önerdiği JetBrains temelli RustRover, CLion IDE'leri
+ve Microsoft tarafından geliştirilen VSCode uygulaması kullanılarak geliştirilmiştir.
 
 Büyük bir kod tabanı (code base) ile çalışırken, kodun okunabilirliği ve yeniden düzenlenebilirliği (refactoring) gibi
 konulara dikkat etmek gerekir. Bu sebeple JetBrains IDE'lerini her yerde kullanmamızı sağlayan bulut temelli auto-sync,
-ileri düzeyde etkili araç entegrasyonları (Git, GitHub, DB, JetBrains AI, Github Copilot ...), güçlü grafiksel arayüz
-tasarımı (GUI) ve yeniden düzenleme (refactoring) araçları ile konfigüre edip GENE projesini geliştirmek için kullandık.
+ileri düzeyde etkili araç entegrasyonları (Git, GitHub, DB, JetBrains AI, Github Copilot vb.) güçlü grafiksel arayüz
+tasarımı (GUI), kod üretimi (codegen) ve düzenleme (refactoring) araçları ile konfigüre edip GENE projesini geliştirmek
+için kullandık.
 
 # GENE
 
@@ -302,64 +255,11 @@ projemizin geliştirilme ivmesini düşüreceğinden GENE, geliştirilirken prog
 
 GENE projesini geliştirirken, paket yöneticileri arasındaki farklılıkları
 soyutlayarak ([abstraction principle](https://en.wikipedia.org/wiki/Abstraction_principle_(computer_programming)))
-ortadan kaldırmayı hedefler.
-Bunun için GENE dahilinde bir paket kayıt sistemi geliştirdik. Bu sistem,
-hafızasındaki paketleri veritabanında gerekli bilgiler ile beraber ulaşılması
-tasarruflu olacak biçimde tutarak GENE'yi kullanılabilir kılar.
+ortadan kaldırmayı hedefler. Bunun için GENE dahilinde bir paket kayıt sistemi geliştirdik. Bu sistem, hafızasındaki
+paketleri veritabanında gerekli bilgiler ile beraber ulaşılması tasarruflu olacak biçimde tutarak GENE'yi kullanılabilir
+kılar.
 
-```
-┌────────────────────────┐
-│         ...            ├─────┐
-└────────────────────────┘     │
-                               │
-┌────────────────────────┐     │
-│ Homebrew Kayıt Sistemi ├─────┤
-└────────────────────────┘     │
-                               │
-┌────────────────────────┐     │
-│ Scoop Kayıt Sistemi    ├─────┤
-└────────────────────────┘     │
-                               │
-┌────────────────────────┐     │  
-                                       ┌─evet──►
-paketi arşivle
-│ RedHat Kayıt Sistemi   ├─────┤  
-                                       │
-└────────────────────────┘     │  ┌────────┐
-  ┌───────────────────────┐  │
-                               ├──┤  GENE  ├──►│ Paket İsim Kümeleyici ├──┤
-Paket isimleri aynı mı?
-┌────────────────────────┐     │  └────────┘
-  └───────────────────────┘  │
-│ Debian Kayıt Sistemi   ├─────┤  
-                                       │
-  
-
-
-  ┌────────────────────────┐
-└────────────────────────┘     │                                          └─hayır─►│ Dereceli sınıflandırma │
-                               │                                           
-    
-  └─┬──────────────────────┘
-┌────────────────────────┐     │                                                     │
-│ Gentoo Kayıt Sistemi   ├─────┤                                                     │  ┌────────────────────────────────┐
-└────────────────────────┘     │                                                eğer ├─►│ paket anasayfaları aynı ise    │
-                               │                                                     │  │                                │
-┌────────────────────────┐     │                                                     │  │ paket açıklamaları aynı ise    │
-│ Arch User Repository   ├─────┤                                                     │  │                                ├───► paketleri arşivle
-└────────────────────────┘     │                                                     │  │ paket indirme kodları aynı ise │            ▲
-                               │                                                     │  │                                │            │
-┌────────────────────────┐     │                                                     │  │ ...                            │            │
-│ Nixpkgs                ├─────┘                                                     │  └────────────────────────────────┘            │
-└────────────────────────┘                                                           │                                                │
-                                                                                     │  ┌──────────────────────────────────┐          │
-                                                                             değilse └─►│ paket kaynak kodlarını analiz et │          │
-                                                                                        └─┬────────────────────────────────┘          │
-                                                                                          │                                           │
-                                                                                          ├─► Analize göre paketler aynı ise ─────────┘
-                                                                                          │
-                                                                                  değilse └─► Paketler farklı ──► Paketleri ayrı ayrı arşivle
-```
+![img_1.png](..%2Fdata%2Ffigures%2Fimg_1.png)
 
 
 > NOTE: Add more notes upon the topic here +algorithm_schema +performance_schema
@@ -370,45 +270,32 @@ Paket isimleri aynı mı?
 
 > GENE çift yönlü tercüme (GENE Two-Way InterpretatioN)
 
-GENE programının yeni bir standart oluşturmadan diğer standartları anlaması için geliştirilmiş olan
-çift yönlü tercüman modülüdür. Bu modül, Paket Yöneticilerinin eymleri için belirlediği komutların
-hepsini anlayarak GENE'nin paket kayıt sistemine dahil etmesini sağlar.
+GENE programının yeni bir standart oluşturmadan diğer standartları anlaması için geliştirilmiş olan çift yönlü tercüman
+modülüdür. Bu modül, Paket Yöneticilerinin eymleri için belirlediği komutların hepsini anlayarak GENE'nin paket kayıt
+sistemine dahil etmesini sağlar.
 
 ## GPmGet
 
 > GENE Paket Yükleme Aracı
 
-Her paket her kayıt sisteminde yer almadığından dolayı kimi paketleri sisteminize indiremeyebilirsiniz.
-Böyle bir durumda GPmGet, GENE'nin paket kayıt sistemine dahil olmayan paketleri altyapı olarak başka bir yönetici
-kullanmanıza olanak sağlar.
+Her paket her kayıt sisteminde yer almadığından dolayı kimi paketleri sisteminize indiremeyebilirsiniz. Böyle bir
+durumda GPmGet, GENE'nin paket kayıt sistemine dahil olmayan paketleri altyapı olarak başka bir yönetici kullanmanıza
+olanak sağlar.
 
 ## GonfiG
 
 > GENE Konfigürasyon Menajeri
 
 GENE programının konfigürasyonlarını yönetmek için geliştirilmiş olan modüldür. GonfiG, GENE'nin konfigürasyon
-verilerini
-sistemler arası (cross platform) kusursuz çalışacak şekilde yönetir.
+verilerini sistemler arası (cross platform) kusursuz çalışacak şekilde yönetir.
 
 ## GPluG
 
 > GENE Eklenti Yöneticisi
 
-GENE programının eklentilerini yönetmek için geliştirilmiş olan modüldür. GPluG, GENE'nin eklentilerini
-indirme, kaldırma, güncelleme gibi işlemlerin yanı sıra eklentilerin GENE'ye entegre olmasını ve belirli altyapıların
-GENE ile senkronizasyonunu sağlar.
-
-[//]: # (## GDocs)
-
-[//]: # ()
-
-[//]: # (> GENEl Paket Yöneticisi Dökümantasyonu)
-
-[//]: # ()
-
-[//]: # (GENE sistem dökümantasyonudur. Ektra ilgi duyan kişilerin okuması için geliştirilmiştir çünkü GENE, yeni bir şey öğrenmeden)
-
-[//]: # (kullanılabilir bir programdır)
+GENE programının eklentilerini yönetmek için geliştirilmiş olan modüldür. GPluG, GENE'nin eklentilerini indirme,
+kaldırma, güncelleme gibi işlemlerin yanı sıra eklentilerin GENE'ye entegre olmasını ve belirli altyapıların GENE ile
+senkronizasyonunu sağlar.
 
 # Ekler
 
