@@ -41,12 +41,6 @@ başlı başına bir işletim sistemi olduğundan, standardalizasyon amacı güt
 gibi konularda sıkıntılar yaşadığından
 dolayı GENE, paket standardalizasyonunu çok daha iyi yapmaktadır.
 
-- [yumitude](https://github.com/timols/yumitude) Project with the same idea but not implemented.
-- [MEW](https://github.com/fossasia/mew) Project similar to pacaptr.
-- [whohas](https://github.com/whohas/whohas) - A system utility to search from general package registries.
-- [pacaptr](https://github.com/icy/pacapt) - pacman-like syntax for all package managers.
-- [bedrock linux](https://bedrocklinux.org/0.7/pmm-beta.html)'s package manager manager (a.k.a pmm)
-
 ## Cevaplanmamış Sorular
 
 - Paket Yöneticilerinin paket kayıt sistemleri araralarındaki tek fark paket isimlendirmeleri değildir.
@@ -55,3 +49,11 @@ dolayı GENE, paket standardalizasyonunu çok daha iyi yapmaktadır.
 
 - Paket yönetici kayıt sistemlerinin boyutu; sistemden sisteme değiştiğinden dolayı indirmek istediğiniz paket,
   paket yöneticinizin kayıt sistemine kayıtlı olmayabilir. Böyle bir durumda GENE sizi uyaracaktır.
+
+## Kaynaklar
+
+- yumitude: https://github.com/timols/yumitude Project with the same idea but not implemented.
+- MEW: https://github.com/fossasia/mew Project similar to pacaptr.
+- whohas: https://github.com/whohas/whohas - A system utility to search from general package registries.
+- pacaptr: https://github.com/icy/pacapt - pacman-like syntax for all package managers.
+- bedrock linux: https://bedrocklinux.org/0.7/pmm-beta.html package manager manager (a.k.a pmm)
