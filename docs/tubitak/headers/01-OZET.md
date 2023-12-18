@@ -10,53 +10,53 @@
 Son yıllarda dijital dünya adına geliştirilen teknolojiler sayesinde program geliştirmek
 çeşitli yollarla kolaylaştırılmıştır. Örneğin eskiden program geliştirmek
 için [vi](https://en.wikipedia.org/wiki/Vi_(text_editor)) gibi metin editörleri kullanılırken günümüzde
-[JetBrains](https://www.jetbrains.com/) IDE'leri gibi LSP protokolleri,
-ileri seviye düzenleme, kod üretimi gibi araçlar kullanılmaktadır.
+[JetBrains](https://www.jetbrains.com/) IDE'leri gibi ileri seviye araçlar kullanılmaktadır.
 
-Bu gelişmelerden etkilenen en yaygın araçlardan birisi paket yöneticileridir.
+Bu gelişmelerden etkilenen araçlardan birisi de paket yöneticileridir.
 Amatör ya da profesyonel her yazılım geliştiricisinin kullandığı paket yöneticileri,
-herhangi bir programın kurulumu, güncellenmesi, kaldırılması gibi işlemleri kolaylaştırır.
+herhangi bir programın kurulumu, güncellenmesi, kaldırılması gibi işlemleri basitleştirir.
 
-Örneğin python programlama dilinin standart paket yöneticisi `pip`
-python ile kod yazan olan herkesin sıkça kullandığı bir yazılımdır.
+Örneğin python programlama dilinin standart paket yöneticisi pip,
+python ile kod yazan olan herkesin sıkça kullandığı bir programdır.
 
-Paket yöneticilerinin yazılımcıların günlük işlerini hızlandırdıkları için günümüzde pek çok işletim sistemine
-uyarlanmış tipleri bulunmaktadır. Bunlara Windows için `chocolatey`, Linux ve MacOS için `nix` örnek verilebilir.
+Paket yöneticilerinin sağladıkları faydalar sebebiyle günümüzde pek çok işletim sistemine uyarlanmış
+tipleri bulunmaktadır.
 
-Farklı paket yöneticilerinin komutları, dökümanları, paket kayıt sistemleri
-hatta paket adlandırma standartlarının birbiriyle uyuşmaması, kullanıcıların diğer işletim sistemlerinden aldıkları
-bilgilerden kendi işletim sistemlerinde faydalanamamalarına sebep olmaktadır.
-Örneğin kurulumu yapılan bir yazılımın bağımlı olduğu kütüphaneler kullanıcının sisteminde farklı standartlara bağlıysa
-geliştiricinin önerdiği yöntemler size uymayacağından kütüphaneleri nasıl indireceğini kullanıcı bulmalıdır.
+Paket yöneticilerinin kendilerine özgü komutları, dökümanları, paket kayıt sistemleri
+ve paket adlandırma standartları olması, kullanıcılar arasında uyuşmazlıklara sebep olmaktadır.
 
-Bu bağlamda Debian paket kayıt sistemindeki bir kütüphane paketinin isimlendirme standardı
-`lib<kütüphane adı>` iken RedHat paket kayıt sistemi için aynı standart `<kütüphane>-devel`
-şeklinde belirlenmiştir. Örnek olarak günümüz network protokolleri arasında veri aktarımı için kullanılan
-[`Client for URL (cURL)`](https://en.wikipedia.org/wiki/CURL) yazılımı, Debian paketlerinde `libcurl`, RedHat
-paketlerinde `curl-devel` olarak adlandırılmıştır.
+Bu duruma örnek olarak [`make`](https://en.wikipedia.org/wiki/Make_(software)) yapılandırma
+sistemi paketinin genel adı linux paket arşivlerinde `make` olmasının yanında
+Nix paket arşivinde `gnumake` adında olması. Bu durum karşısında kullanıcıların
+paket indirirken istedikleri paketleri bulamamalarına sebep olmaktadır.
 
-Kimi adlandırma farklılıkları bir standarda bağlı olmadığından dolayı tahmin edilmesi zor durumlarla karşılaşılabilir.
-Örneğin make yapılandırma sistemi pek çok paket yöneticisi tarafından `make` adına sahipken `nixpkgs` paket platformu
-üzerinde `gnumake` adındadır.
+Farklılık gösteren durumlardan bir diğeri de komut satırı argümanlarıdır (commandline arguments)
+örneğin Archlinux işletim sisteminde `pacman -Syu` komutu Ubunut'da `apt upgrade` ile aynı işlevi görmektedir.
 
-Kullanıcıların bu tarz sorunlarla karşılaşmaması için geliştirdiğimiz GENE Paket Yöneticisi, paket yöneticileri
-arasındaki farklılıkları
-soyutlayarak ([abstraction principle](https://en.wikipedia.org/wiki/Abstraction_principle_(computer_programming)))
-ortadan kaldırmayı hedeflemektedir.
+Kullanıcıların bu tarz sorunlarla karşılaşmaması için geliştirdiğimiz GENE paket yöneticisi, paket yöneticileri
+arasındaki farklılıkları soyutlayarak ([abstraction principle](https://en.wikipedia.org/wiki/Abstraction_principle_(computer_programming))) ortadan kaldırmayı hedeflemektedir.
 
-Bu farklılıklar temelde komutlar (commandline arguments) ve kayıt sistemlerinden (package registry) oluşur.
+GENE, kullanıcı paketleri hakkında gerekli bilgileri kayıt etme amacıyla GPacR (Generic PACkage Registry)
+adını verdiğimiz kendi tasarruflu paket arşivini kullanmaktadır.
 
-GENE, kayıt sistemlerini birleştirmek için GPacR adını verdiğimiz her bir paketin bütün sistemlerdeki isimlerini otomatik olarak
-güncellenebilen bir arşivleme algoritması kullanır. Kullanıcı bir paket indirmek istediği zaman kullanıcının kullandığı
-paket yöneticileri ve GPacR'ı kullanarak paket yöneticisine uygun paket ismini gerekli komutlarla sistem kabuğunuza
-ileterek paketin kurulumunu yapar.
-
-Paket kayıt sistemi otomasyonu, bulut temelli CI/CD/CT (Continious Integration, Continious Delivery, Continious Testing)
-entegrasyonlarıyla son teknoloji program geliştirme standartları ve bakım protokollerini destekler nitelikte
-tasarlanmıştır.
+Bu standartlaştırmayı yaparken yeni bir komut tipi oluşturmak yerine var olan komutları anlamaya yönelik
+geliştirildiğinden kullanıcıların bildiği komutları diğer sistemlerde kullanılmasına olanak sağlamaktadır.
 
 > ANAHTAR KELIMELER: paket yöneticisi, soyutlama, cross platform, standartlaştırma
 
 ## Kaynaklar
 
-https://en.wikipedia.org/wiki/CURL
+- curl: https://en.wikipedia.org/wiki/CURL
+- abstraction principle: https://en.wikipedia.org/wiki/Abstraction_principle_(computer_programming)
+
+<!--
+GPacR kayıt sisteminin yeni geliştirilen paketlere adapte olmasını kolaylaştırmak ve paket kayıt sistemini
+güncellemek için bir otomasyon sistemi geliştirdik. Bu sistem, paketleri agresif bir elemeden geçiren yüksek
+performanslı
+bir algoritma kullanır. Bu algoritma sayesinde belirli aralıklarla güncellenen GPacR etkin ve tasarruflu bir biçimde
+güncel tutulmuş olur.
+
+Paket kayıt sistemi otomasyonu, bulut temelli CI/CD/CT (Continious Integration, Continious Delivery, Continious Testing)
+entegrasyonlarıyla
+son teknoloji program geliştirme standartları ve bakım protokollerini destekler nitelikte tasarlanmıştır.
+-->
