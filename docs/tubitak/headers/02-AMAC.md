@@ -7,14 +7,14 @@
 > kaçınılmalıdır.
 
 Bir yazılımı sisteminize indirirken öncelikle kullandığınız paket yöneticisinin kayıt sistemindeki adını bilmeniz
-gerekmektedir. Bu paketlerin isimleri kayıt sistemlerine bağlı olarak değişkenlik gösterdiğinden yazılım geliştiricileri
+gerekmektedir. Bu isimler, kayıt sistemlerine bağlı olarak değişkenlik gösterdiğinden yazılım geliştiricileri
 kimi paketlerin kurulumunu yaparken paket isimlerinin uyuşmazlığı sonucu sorunlarla karşılaşmaktadır.
 
 GENE; paket yöneticilerindeki belirsizlikleri, yeni bir standart oluşturmadan tek boyuta indirgeyerek ortadan kaldırmayı
 amaçlamaktadır.
 
-Örneğin [cURL]() kütüphanesi kullandığınız paket yöneticisine
-göre `curl-devel`, `libcurl`, `curl-dev`, `libcurl-devel`, `curl` adını almaktadır.
+Örneğin [cURL]() kütüphanesi; kullandığınız paket yöneticisine
+göre `curl-devel`, `libcurl`, `curl-dev`, `libcurl-devel`, `curl` gibi pek çok isim almaktadır.
 
 Aynı durum paket yöneticilerinin kullanımı için de geçerlidir. Mesela `Pacman` paket yöneticisinde paketlerinizi
 güncellemek için `pacman -Syu` komutunu kullanırken `APT` paket yöneticisinde `apt upgrade` komutunu kullanırsınız.
@@ -23,8 +23,8 @@ güncellemek için `pacman -Syu` komutunu kullanırken `APT` paket yöneticisind
 GENE yazılımcıların günlük işlerinde sık karşılaştıkları bu tarz sıkınıntıların önüne geçmeyi hedeflemektedir.
 
 Ancak paket yöneticilerinin komutlarını standartlaştırmak, yeni bir standart ortaya koyarak amacına ulaşamama riski
-barındırdığından GENE yeni bir paketleme sistemi oluşturup bilgi kargaşası oluşturmak yerine var olan standartları
-anlamaya odaklıdır.
+barındırdığından GENE yeni bir paketleme sistemi oluşturarak bilgi kargaşası oluşturmak yerine var olan standartları
+anlamlandırarak geniş kitlelere hitap etmeye odaklıdır.
 
 Figürde verildiği gibi GENE, bütün işletim sistemlerinin paket yöneticilerinin komutlarını anlayıp sizin sisteminize
 uyarlar. Bu sayede yeni bir döküman okumanıza gerek kalmadan istediğiniz paket yöneticisini kullanabilirsiniz
@@ -42,7 +42,7 @@ uyarlar. Bu sayede yeni bir döküman okumanıza gerek kalmadan istediğiniz pak
 '-------------'       '-------------'       '------------------'       '--------------'        '---------------'
 ```
 
-Aşağıdaki tabloda popüler paket yöneticilerinin basit eylemler için kullandıkları komutlar ve aralarındaki farklılıklar verilmiştir.
+Aşağıdaki tabloda popüler paket yöneticilerinin basit eylemler için kullandıkları komutlar arasındaki farklılıklara örnekler verilmiştir.
 
 | Paket Yöneticisi | İndirme Komutu           | Güncelleme Komutu          | Sorgulama Komutu          | Silme Komutu               |
 |:-----------------|:-------------------------|:---------------------------|:--------------------------|:---------------------------|
@@ -66,14 +66,14 @@ Aşağıdaki tabloda popüler paket yöneticilerinin basit eylemler için kullan
   '----------'      |       
   .-------------.   |     
   | libcurl-dev |---+                    
-  '-------------'   |  								   .---------.  .-----------------.
-  .---------------. |          					    .--| WINDOWS | | scoop, chocolatey |
+  '-------------'   |                                  .---------.  .-----------------.
+  .---------------. |                               .--| WINDOWS | | scoop, chocolatey |
   | libcurl-devel |-+                               |  '---------'  '-----------------'
   '---------------' |          .-------------.      |  .---------.  .------------------------------------------.
   .------------.    +----------|    GENE     |------+--|  LINUX  | | pacman, apt, yum, portage, xbps, nix, ...  | 
   | curl-devel |----+          '-------------'      |  '---------'  '------------------------------------------'
   '------------'    |                               |  .---------.  .------------------.
-  .------.         	|	                            '--|  MACOS  | | homebrew, macports |
+  .------.          |                               '--|  MACOS  | | homebrew, macports |
   | curl |----------+                                  '---------'  '------------------'
   '------'          |   
   .---------.       | 
@@ -82,15 +82,6 @@ Aşağıdaki tabloda popüler paket yöneticilerinin basit eylemler için kullan
 ```                                     
 
 ## Kaynaklar
-
-- simdjson:
-    - https://pkgs.org/search/?q=simdjson
-    - https://search.nixos.org/packages?channel=unstable&show=simdjson&from=0&size=50&sort=relevance&type=packages&query=simdjson
-    - https://pkgs.org/search/?q=simdjson
-    - https://pkgs.alpinelinux.org/packages?name=simdjson&branch=edge&repo=&arch=&maintainer=
-        - https://formulae.brew.sh/formula/simdjson#default
-        - https://scoop.sh/#/apps?q=simdjson
-        - https://packages.debian.org/search?suite=bookworm&section=all&arch=any&searchon=names&keywords=simdjson
 
 https://pkgs.org/search/?q=curl
 

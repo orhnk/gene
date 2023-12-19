@@ -45,10 +45,9 @@ olarak belirlediği Cargo, diğer sistem programlama dilleri ile karşılaştır
 yapılandırma sistemine sahiptir.
 
 Proje geliştirme sürecinde cargo'nun kullandığı semantik versiyonlama (semver), yanking gibi sistemlerin sağladığı
-sürdürülebilirlik
-(maintenance) kolaylığı ile birlikte yerel derleme (local compilation) ile otomatik özellik yönetimi (feature
-management)
-ve ya plugin yönetimi (plugin management) gibi özellikler sayesinde GENE projesini geliştirirken kolaylık sağlamıştır.
+sürdürülebilirlik (maintenance) kolaylığı ile birlikte yerel derleme (local compilation) ile otomatik özellik yönetimi
+( feature management), plugin yönetimi (plugin management) gibi özellikler, GENE projesini geliştirmeyi
+kolaylaştırmıştır.
 
 ### Yüksek Seviye Sözdizimi
 
@@ -58,110 +57,11 @@ Rust, C ve C++ gibi düşük seviye programlama dillerinin aksine yüksek seviye
 programcılar, düşük seviye programlama dillerinde karşılaştıkları okunabilirik, yeniden düzenleme (refactoring)
 gibi konularda sıkıntılar yaşamazlar.
 
-### Borrow Checker Sistemi
-
-- No Manual memory management with a smart compiler
-- New and refreshing paradigm to programming
-- Less ways of causing Undefined Behaviour
-- Fearless concurrency!
-
-GENE'nin yüksek performanslı çalışabilmesi için ileriye dönük planlarımızdan birisi de güçlü bir bellek sistemiydi.
-Her yazılım sanal ortamda bir hacim kaplar. Bu hacmin tutulduğu pek çok yer olmasına rağmen yazılımların işleyiş süresi
-boyunca
-kullandığı iki temel tip hafıza bulunur:
-
-- **CPU (Central Processing Unit - Merkezi İşlem Birimi)**: Kayıtları (registries) genellikle düşük seviye programlama
-  yapan kişilerin sık kullandığı, rax, eax gibi kimi x86 assembly sembollerinin (mnemonics) temsil ettiği düşük hacimli
-  yüksek performanslı hafıza birimleridir.
-- **RAM (Random Access Memory - Rastgele Erişim Hafızası)**: Bir bilgisayar işlemcisinin kısa süreli hafızasıdır.
-  İşlemci Kayıtları (CPU Registries)'den sonra en hızlı işlemci birimidir.
-
-Yazılımlar önce dahili diskinize (HDD/SSD) ardından RAM'inizde ve en son parçalanarak CPU kayıtlarına aktarılır.
-Bu süreçte bilgisayarınız, yazılımın ihtiyacı olmadığı kimi değişkenleri belleğinden temizlemeli ve böylece sistem
-performansını maksimumda tutmalıdır.
-Bu temizleme işlemini yapan kimi algoritmalar aşağıda listelenmiştir:
-
-#### Çöp Toplama (Garbage Collection)
-
-Özellikle sözdizimini (syntax) basit tutmak için Go, Python, C#, Haskell, Java, Swift gibi yazılım sektöründe çok
-kullanılan programlama dilleri arasında kullanılmaktadır.
-
-Temel çalışma mantığı yazılımınız çalışırken başka bir programın kimi algoritmaları kullanarak [
-[reference counting, tracing](https://en.wikipedia.org/wiki/Garbage_collection_(computer_science)),
-[kaçış analizleri (escape analysis)](https://en.wikipedia.org/wiki/Escape_analysis) vs. ]
-programınızın kullanmadığı değişkenleri bellekten temizlemektir.
-
-##### Sıkıntıları
-
-Çöp Toplama; kimi endüstriler tarafından problem oluşturan bazı sıkıntılara karşılaşılmasına sebep olmuşturş.
-
-Örneğin dünya çapında kulanılan anlık iletişim ve dijital dağıtım platformudur. Discord,
-Kimi sunucu (server side) ve alıcı (client side) yazılımlarını Go programlama dilinden Rust programlama diline
-geçiş yapmaktadır. [https://discord.com/blog/why-discord-is-switching-from-go-to-rust]
-Bunun temel sebebi Go ile yazılmış olan okunmuş mesajlar servisinin (Read States service)
-Go gibi çöp toplayıcı (garbage collected) bir programlama dili ile yazıldığından dolayı
-Çöp toplama sivrileri (Garbage Collection Spikes) denilen bir performans sorunu ile karşılaşmışlar.
-Böyle bir durumda Discord'un işlemeye çalıştığı inanılmaz büyüklükteki veriler, sunucularında birikerek
-servisin gerekli performansa oluşamamasına ve ortalama iki dakikada bir sunucu gecikmelerine ve işlemci
-zorlanmalarına sebep olmaktadır ( bkz. Figür 1 )
-
-![figür 1](https://github.com/denizbaba0/gene/assets/107251435/27e4526b-4133-4541-bd16-4e5983150a3a)
-
-Bu problemin sebebinin çöp toplama sistemleridir çünkü bu sistemler veriyi kullanıldıktan hemen sonra değil,
-belirli aralıklarla temizler. Bu da Discord'un sunucuları gibi inanılmaz büyüklükte veri işleyen bilgisayarların
-hafızalarında milyonlarca insanın verilerinin belirli aralıklarla birikmesine ve bu veriler temizlenirken de işlemcinin
-zorlanmasına neden olmaktadır.
-
-Go programlama dilinin kaynak koduna bakacak olursak bütün programların minimum 2 dakika içerisinde çöp toplama işlemi
-geçirmesinin
-zorunlu tutulduğunu
-görmekteyiz [bkz. src/runtime/proc.go S4481-S4486](https://github.com/golang/go/blob/895b7c85addfffe19b66d8ca71c31799d6e55990/src/runtime/proc.go#L4481-L4486)
-
-Discord bu problemi çözmek adına Go programlama dilinin çöp toplayıcı sistemini kendilerine göre ayarlama
-çalışmıştır [bkz. Go SetGCPercent fonksiyonu](https://pkg.go.dev/runtime/debug#SetGCPercent).
-
-Performans düşüklüğünü giderilemeyince problemi daha derin bir araştırmadan geçiren ekip, Go çöp toplama sisteminin
-devasa boyutlarda olan en son kullanılan kullanıcı okumaları önbelleğinin tamamını
-referans edilmeyen ve temizlenmesi gereken veriler için taradığını ve bu sebeple sunucularının bekledikleri performansta
-olmadıklarını anladı.
-
-Yapılan denemeler sonucu daha küçük önbellek yığınları kullanarak sistem performansını artırmayı deneyen yazılımcı ekibi
-gecikmeyi azalatmayı başarsalar da
-düşük önbellek hacimleri
-sunucunun [99'uncu gecikmelerini](https://cloud.google.com/spanner/docs/latency-metrics#:~:text=99th%20percentile%20latency%3A%20The%20maximum,in%20less%20than%202%20seconds.)
-artırmıştır.
-
-Discord'un bu problemi çözme amacıyla aynı yazılımı Rust ile yeniden yazmış ve Rust'ın yenilikçi ve derleme-zamanı (
-compile-time) bellek yönetimi (memory management) sayesinde çöp toplama sistemlerine ihyitaç duymadan
-yüksek performanslı bir yazılım geliştirmiştir.
-
-> Go: Mor | Rust: Mavi
->
-> Discord ekibinin rust programlama dilini kullanmaya karar vermesinin ardından sistem işlemci
-> performans sorunları ve gecikmeleri sona ermiştir. Bunun üzerine son derece optimize edilmiş
-> eski Go altyapılarını yarı-optimize edilmiş yeni Rust yapılandırmaları bütün metrikler açısından geçmiştir.
->
-> ![figür 2](https://github.com/denizbaba0/gene/assets/107251435/97982e37-54e0-455c-b9c6-86b2499bface)
-
-> Rust ekosisteminin hızla gelişmesi ile beraber tokio (rust asenkron işlem kütüphanesi) adapte edilen yazılım,
-> ayın figür 3'te 16'sınından itibaren ciddi performans artışları göstermiştir.
->
-> ![image](https://github.com/denizbaba0/gene/assets/107251435/cdead23a-bf43-4c77-810b-4f7ffafa19b7)
-
-> Rust'ın yüksek performans gösteren yeni bellek yönetim sistemi sonucunda önbellek yığın hacmini artırmaya karar veren
-> ekip, figür 4'te gösterildiği gibi performansı ciddi seviyede artırmayı başarmıştır.
->
-> NOT: ortalama süre (avarage time) mikrosaniye (microseconds) ve maksimumum @mention milisaniye cinsinden ölçülmüştür.
->
-> ![image](https://github.com/denizbaba0/gene/assets/107251435/35429ff3-1589-46ac-9c39-ad13ac68501e)
-
-Daha ayrıntılı bilgi için [Ek I](https://discord.com/blog/why-discord-is-switching-from-go-to-rust)
-
-#### Ödünç Alma Denetleyicisi (Borrow Checker)
+### Ödünç Alma Denetleyicisi (Borrow Checker)
 
 Rust sahiplik (ownership) ve ödünç alma (borrowing) kavramları sayesinde bütün bellek yönetimini derleme
 zamanında (compile-time) yapar. Bu sayede programcılar, bellek yönetimi ile uğraşmak zorunda kalmazken
-aynı zamanda işleyiş süresi bellek yönetimi ile ilgili hataların neredeyse tamamının önüne geçilmiş
+aynı zamanda işleyiş anındaki bellek hatalarının çoğunun önüne geçilmiş
 olur. [bkz. reference cycles (referans döngüleri)](https://doc.rust-lang.org/book/ch15-06-reference-cycles.html)
 
 Rust programlama dilinin en önemli özelliklerinden biri de manuel bellek yönetimi olmamasıdır. Rust,
@@ -228,7 +128,8 @@ için kullandık.
 
 3 farklı editörü aynı proje için kullanmamızın sebebi her bir editörün kendine özgü güçlü yanları olmasıdır.
 
-Ana geliştirici makinesi Linux NixOS dağıtımı çalıştırdığından JetBrains IDE'leri kusurlu çalışmaktadır. [Read-Only File System & absolute paths for dependencies etc.]
+Ana geliştirici makinesi Linux NixOS dağıtımı çalıştırdığından JetBrains IDE'leri kusurlu
+çalışmaktadır. [Read-Only File System & absolute paths for dependencies etc.]
 Bu nedenle bazı zamanlar VSCode kod editörü kullandık.
 
 Linux kullanıcılarının sık kullandığı sistem kabuğu (system shell) terminalleri içerisinde geçirdiğim zamanlar
@@ -261,8 +162,10 @@ projemizin geliştirilme ivmesini düşüreceğinden GENE, geliştirilirken prog
 
 > GENE Paket Kayıt Sistemi
 
-GENE'nin pek çok kayıt sistemini anlayabilmesi için geliştirilen GPacR, gerekli sistemler arası bilgileri arşivlemek için kullanılır.
-Etkin ve tasarruflu olarak tasarladığımız algoritmalar yardımı ile pek çok paket kayıt sistemini GENE'nin anlayacağı biçime sokar.
+GENE'nin pek çok kayıt sistemini anlayabilmesi için geliştirilen GPacR, gerekli sistemler arası bilgileri arşivlemek
+için kullanılır.
+Etkin ve tasarruflu olarak tasarladığımız algoritmalar yardımı ile pek çok paket kayıt sistemini GENE'nin anlayacağı
+biçime sokar.
 
 ![img_1.png](..%2Fdata%2Ffigures%2Fimg_1.png)
 

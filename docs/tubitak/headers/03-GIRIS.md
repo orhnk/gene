@@ -22,9 +22,10 @@ bulunan paketin sisteminize indirilmesi hakkında fayda sağlamaz. GENE ise arad
 kaydını bulup indirir.
 
 WhoHas, kullanıcıdan aldığı girdiyi sorguladığı için kimi durumlarda GENE'nin deterministik altyapısının indirdiği
-paketleri bulamayabilir. Bu problemin temel sebebi, `whohas` programının paket kayıt sistemlerin
+paketleri bulamayabilir. Bu problemin temel sebebi, `whohas` yazılımının paket isimlerini standartlaştırma gibi bir amaç
+gütmemesidir.
 
-## MEW, Pacaptr
+## Pacaptr
 
 MEW ve Pacaptr, paket yöneticilerinin komutlarını standartlaştırmak için geliştirilmiş projelerdir.
 Bu projelerin gözden kaçırdığı nokta, paket yöneticilerinin paket kayıt sistemlerinin standartlaştırılmamış olmasıdır.
@@ -32,14 +33,20 @@ Ayrıca bir paket ekosistemi standardize etmek için o ekosiste yeni komutlar ek
 yeni bir standart oluşturmak ve karmaşayı daha da artırmak anlamına gelmektedir. Bu problemin üstesinden gelmek için
 GENE Paket Yöneticisi, yeni bir komut sistemi icad etmeden var olan paket yöneticilerinin komutları ile çalışır.
 
+## Mew
+
+Mew paket yönetici komutlarını standartlaştırma konusunda kullanıcılara yardımcı olmayı hedefleyen ufak çaplı bir
+projedir. Çalışma mantığı olarak .PO ([GNU gettext
+utilities](https://www.gnu.org/software/gettext/manual/html_node/PO-Files.html))  dosyaları gibi çalışır.
+5 yıldır geliştirilmeyen ve basit bir python kodu ile elle yazılmış JSON dosyalarından oluştuğu için GENE, MEW yerine
+tercih edilmelidir.
+
 ## Bedrock Linux
 
-Pek bilinmeyen bir Linux dağıtımı olan Bedrock Linux, farklı işletim sistemlerini, aynı bilgisayar üzerinde
-çalıştırmanıza
-olanak sağlar. Bu sayede bedrock linux üzerine bir çok paket yöneticisinden paketler kurabilirsiniz ancak bedrock linux,
-başlı başına bir işletim sistemi olduğundan, standardalizasyon amacı gütmediğinden ve stabilite, bakım (maintenance)
-gibi konularda sıkıntılar yaşadığından
-dolayı GENE, paket standardalizasyonunu çok daha iyi yapmaktadır.
+Pek bilinmeyen bir Linux dağıtımı olan Bedrock Linux, farklı işletim sistemlerinin programlarını, aynı bilgisayar
+üzerinde çalıştırır. Bu sayede bedrock linux, bir çok paket yöneticisini beraber kullanmanıza olanak tanır. ancak
+bedrock linux, başlı başına bir işletim sistemi olduğundan, standardalizasyon amacı gütmediğinden ve stabilite, bakım
+(maintenance) gibi konularda sıkıntılar yaşadığından dolayı paket yöneticisi standardalizasyonu için uygun değildir.
 
 ## Cevaplanmamış Sorular
 
