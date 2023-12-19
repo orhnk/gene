@@ -215,16 +215,24 @@ Sıkıntı takipçisi (issue tracker), kod incelemesi (code review), özellik is
 geniş çaplı projeler için gerekli olan yapıları oluşturacak ve Git ile entegre çalışacak bir barındırma servisi
 (host) olarak GitHub platformunu kullandık.
 
-## JetBrains IDE ve VSCode
+## JetBrains IDE, VSCode ve Vimacs
 
-GENE, IDE ve editör sektöründe profesyonel yazılımcıların önerdiği JetBrains temelli RustRover, CLion IDE'leri
-ve Microsoft tarafından geliştirilen VSCode uygulaması kullanılarak geliştirilmiştir.
+GENE, IDE ve editör sektöründe profesyonel yazılımcıların önerdiği JetBrains temelli RustRover, CLion IDE'leri,
+Neovim kod editörü ve Microsoft tarafından geliştirilen VSCode uygulaması kullanılarak geliştirilmiştir.
 
 Büyük bir kod tabanı (code base) ile çalışırken, kodun okunabilirliği ve yeniden düzenlenebilirliği (refactoring) gibi
 konulara dikkat etmek gerekir. Bu sebeple JetBrains IDE'lerini her yerde kullanmamızı sağlayan bulut temelli auto-sync,
 ileri düzeyde etkili araç entegrasyonları (Git, GitHub, DB, JetBrains AI, Github Copilot vb.) güçlü grafiksel arayüz
 tasarımı (GUI), kod üretimi (codegen) ve düzenleme (refactoring) araçları ile konfigüre edip GENE projesini geliştirmek
 için kullandık.
+
+3 farklı editörü aynı proje için kullanmamızın sebebi her bir editörün kendine özgü güçlü yanları olmasıdır.
+
+Ana geliştirici makinesi Linux NixOS dağıtımı çalıştırdığından JetBrains IDE'leri kusurlu çalışmaktadır. [Read-Only File System & absolute paths for dependencies etc.]
+Bu nedenle bazı zamanlar VSCode kod editörü kullandık.
+
+Linux kullanıcılarının sık kullandığı sistem kabuğu (system shell) terminalleri içerisinde geçirdiğim zamanlar
+kendi neovim dağıtımım olan `vimacs`'i kullandım [https://github.com/utfeight/vimacs]
 
 # GENE
 
@@ -253,11 +261,8 @@ projemizin geliştirilme ivmesini düşüreceğinden GENE, geliştirilirken prog
 
 > GENE Paket Kayıt Sistemi
 
-GENE projesini geliştirirken, paket yöneticileri arasındaki farklılıkları
-soyutlayarak ([abstraction principle](https://en.wikipedia.org/wiki/Abstraction_principle_(computer_programming)))
-ortadan kaldırmayı hedefler. Bunun için GENE dahilinde bir paket kayıt sistemi geliştirdik. Bu sistem, hafızasındaki
-paketleri veritabanında gerekli bilgiler ile beraber ulaşılması tasarruflu olacak biçimde tutarak GENE'yi kullanılabilir
-kılar.
+GENE'nin pek çok kayıt sistemini anlayabilmesi için geliştirilen GPacR, gerekli sistemler arası bilgileri arşivlemek için kullanılır.
+Etkin ve tasarruflu olarak tasarladığımız algoritmalar yardımı ile pek çok paket kayıt sistemini GENE'nin anlayacağı biçime sokar.
 
 ![img_1.png](..%2Fdata%2Ffigures%2Fimg_1.png)
 
