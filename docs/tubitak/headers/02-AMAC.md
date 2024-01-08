@@ -13,6 +13,7 @@
 Figür I'deki tabloda popüler paket yöneticilerinin basit eylemler için kullandıkları komutlar arasındaki farklılıklara örnekler verilmiştir.
 
 > Figür I
+
 | Paket Yöneticisi | İndirme Komutu           | Güncelleme Komutu          | Sorgulama Komutu          | Silme Komutu               |
 |:-----------------|:-------------------------|:---------------------------|:--------------------------|:---------------------------|
 | `APT`            | `apt install <paket>`    | `apt upgrade <paket>`      | `apt search <paket>`      | `apt remove <paket>`       |
