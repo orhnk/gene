@@ -25,19 +25,9 @@ kimi programların kurulumunu zorlaştırmaktadır.
 Bu probleme çözüm olarak geliştirdiğimiz `merge` paket yöneticisi emülatörü, işletim sisteminizde istediğiniz paket yöneticisinin komutlarını kullanmanıza olanak sağlar.
 `merge` sayesinde Windows'ta `pacman -S <paket>`, `scoop install <paket>`, `emerge --install <paket>` gibi bütün paket yöneticilerinin işletim sisteminizde çalışmasını sağlar.
 
-Farklılık gösteren durumlardan bir diğeri de komut satırı argümanlarıdır (commandline arguments)
-örneğin Archlinux işletim sisteminde `pacman -Syu` komutu Ubunut'da `apt upgrade` ile aynı işlevi görmektedir.
+Böylece yeni bir standart oluşturmadan var olan standartları tek bir çatı altında topladığından, yeni bir döküman okumanıza gerek kalmadan `merge`'i kullanabilirsiniz.
 
-Kullanıcıların bu tarz sorunlarla karşılaşmaması için geliştirdiğimiz GENE paket yöneticisi, paket yöneticileri
-arasındaki farklılıkları soyutlayarak ([abstraction principle](https://en.wikipedia.org/wiki/Abstraction_principle_(computer_programming))) ortadan kaldırmayı hedeflemektedir.
-
-GENE, kullanıcı paketleri hakkında gerekli bilgileri kayıt etme amacıyla GPacR (Generic PACkage Registry)
-adını verdiğimiz kendi tasarruflu paket arşivini kullanmaktadır.
-
-Bu standartlaştırmayı yaparken yeni bir komut tipi oluşturmak yerine var olan komutları anlamaya yönelik
-geliştirildiğinden kullanıcıların bildiği komutları diğer sistemlerde kullanılmasına olanak sağlamaktadır.
-
-> ANAHTAR KELIMELER: paket yöneticisi, soyutlama, cross platform, standartlaştırma
+> ANAHTAR KELIMELER: paket yöneticisi, işletim sistemi, standartlaştırma, çapraz platform, soyutlama
 
 ## Kaynaklar
 
