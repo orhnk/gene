@@ -7,28 +7,23 @@
 > kelimeden oluşan anahtar kelimeler verilir. İdeal olan başlarken taslak bir özet oluşturup, çalışma bittiğinde proje
 > raporunun içeriğine uygun bir şekilde özeti güncellemektir.
 
-Son yıllarda dijital dünya adına geliştirilen teknolojiler sayesinde program geliştirmek
-çeşitli yollarla kolaylaştırılmıştır. Örneğin eskiden program geliştirmek
-için [vi](https://en.wikipedia.org/wiki/Vi_(text_editor)) gibi metin editörleri kullanılırken günümüzde
-[JetBrains](https://www.jetbrains.com/) IDE'leri gibi ileri seviye araçlar kullanılmaktadır.
+Son yıllarda dijital dünya adına geliştirilen teknolojiler sayesinde program geliştirmek için başvurulan yöntemlerin verimi zamanla artmıştır.
 
-Bu gelişmelerden etkilenen programlardan birisi de paket yöneticileridir.
-Amatör ya da profesyonel her yazılım geliştiricisinin kullandığı paket yöneticileri,
-herhangi bir programın kurulumu, güncellenmesi, kaldırılması gibi işlemleri basitleştirir.
+Örneğin 70'lerde bilgisayar yazılımcıları, programlarını delikli kartlar üzerine yazarken bu işlem daha sonra assmebly gibi düşük seviye makine dillerine,
+ardından C gibi düşük seviye programlama dillerine ve sonunda LLVM gibi modern altyapılar kullanan Zig, Rust gibi programlama dillerine dönüşmüştür.
 
-Örneğin python programlama dilinin standart paket yöneticisi pip,
-python ile kod yazan olan herkesin sıkça kullandığı bir programdır.
+Bu gelişmelerde göze çarpan iyileştirmelerden birisi de standardalizasyon alanındadır.
 
-Paket yöneticilerinin sağladıkları faydalar sebebiyle günümüzde pek çok işletim sistemine uyarlanmış
-tipleri bulunmaktadır.
+Mesela C/C++ gibi programlama dillerinin standard bir paket yöneticileri yoktur. Şimdiye kadar vcpkg, canon gibi paket yöneticisi girişimleri olsa da
+genel bir standard yakalanamamıştır. Daha sonraları çıkan Rust gibi programlama dilleri bu problemi çözmek adına Cargo gibi standart bir paket yöneticisi kullanmış ve kullancıların
+karşılaşabileceği belirsizlikleri ortadan kaldırmıştır.
 
-Paket yöneticilerinin kendilerine özgü komutları, dökümanları, paket kayıt sistemleri
-ve paket adlandırma standartları olması, kullanıcılar arasında uyuşmazlıklara sebep olmaktadır.
+Aynı standardalizasyon sıkıntıları işletim sistemi paket yöneticilerinde de görülmektedir. Arch Linux İşletim Sistemi'nin `pacman -S <paket>` komutu bir paket indirirken
+Windows temelli Scoop paket yöneticisinde aynı `scoop install <paket>` şeklindedir. Bu durum, bazı programların dökümanlarında yer almayan komutları kullanmanızı gerektirebildiğinden,
+kimi programların kurulumunu zorlaştırmaktadır.
 
-Bu duruma örnek olarak [`make`](https://en.wikipedia.org/wiki/Make_(software)) yapılandırma
-sistemi paketinin genel adı linux paket arşivlerinde `make` olmasının yanında
-Nix paket arşivinde `gnumake` adında olması. Bu durum karşısında kullanıcıların
-paket indirirken istedikleri paketleri bulamamalarına sebep olmaktadır.
+Bu probleme çözüm olarak geliştirdiğimiz `merge` paket yöneticisi emülatörü, işletim sisteminizde istediğiniz paket yöneticisinin komutlarını kullanmanıza olanak sağlar.
+`merge` sayesinde Windows'ta `pacman -S <paket>`, `scoop install <paket>`, `emerge --install <paket>` gibi bütün paket yöneticilerinin işletim sisteminizde çalışmasını sağlar.
 
 Farklılık gösteren durumlardan bir diğeri de komut satırı argümanlarıdır (commandline arguments)
 örneğin Archlinux işletim sisteminde `pacman -Syu` komutu Ubunut'da `apt upgrade` ile aynı işlevi görmektedir.
@@ -46,8 +41,7 @@ geliştirildiğinden kullanıcıların bildiği komutları diğer sistemlerde ku
 
 ## Kaynaklar
 
-- curl: https://en.wikipedia.org/wiki/CURL
-- abstraction principle: https://en.wikipedia.org/wiki/Abstraction_principle_(computer_programming)
+- Punch Kards: https://en.wikipedia.org/wiki/Punched_card_input/output
 
 <!--
 GPacR kayıt sisteminin yeni geliştirilen paketlere adapte olmasını kolaylaştırmak ve paket kayıt sistemini
