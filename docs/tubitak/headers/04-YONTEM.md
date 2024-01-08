@@ -3,7 +3,8 @@
 > Araştırma yönteminin, veri toplama araçlarının, deney ve gözlem düzeneklerinin ve verilerin analiz yönteminin
 > verildiği bölümdür.
 
-GENE Ekosistemini geliştirmek için Rust programlama dilini kullandık.
+`merge` emülatörünü geliştirmek için Rust programlama dilini kullandık. Rust'ı tercih etmemizin arkasındaki sebepler
+aşağıda listelenmiştir.
 
 ### Cargo Paket Yöneticisi
 
@@ -86,10 +87,10 @@ geniş çaplı projeler için gerekli olan yapıları oluşturacak ve Git ile en
 
 Bu sayede GENE'yi geliştirmek ve kullanıcıların karşılaştıkları problemleri çözmek kolaylaşmıştır.
 
-## JetBrains IDE, VSCode ve Vimacs
+## JetBrains IDE, VSCode, Helix ve Vimacs
 
-GENE, IDE ve editör sektöründe profesyonel yazılımcıların önerdiği JetBrains temelli RustRover, CLion IDE'leri,
-Neovim kod editörü ve Microsoft tarafından geliştirilen VSCode uygulaması kullanılarak geliştirilmiştir.
+`merge`, IDE ve editör sektöründe profesyonel yazılımcıların önerdiği JetBrains temelli RustRover, CLion IDE'leri,
+Neovim kod editörü, Rust ile yazılmış Helix terminal editörü ve Microsoft tarafından geliştirilen VSCode uygulaması kullanılarak geliştirilmiştir.
 
 Büyük bir kod tabanı (code base) ile çalışırken, kodun okunabilirliği ve yeniden düzenlenebilirliği (refactoring) gibi
 konulara dikkat etmek gerekir. Bu sebeple JetBrains IDE'lerini her yerde kullanmamızı sağlayan bulut temelli auto-sync,
