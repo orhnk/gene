@@ -6,44 +6,13 @@
 > kişilere sunulacağı dikkate alınarak değerlendirmeye hiçbir katkı sağlamayacak genel konu ve tarihçe anlatımlarından
 > kaçınılmalıdır.
 
-Bir yazılımı sisteminize indirirken öncelikle kullandığınız paket yöneticisinin kayıt sistemindeki adını bilmeniz
-gerekmektedir. Bu isimler, kayıt sistemlerine bağlı olarak değişkenlik gösterdiğinden yazılım geliştiricileri
-kimi paketlerin kurulumunu yaparken paket isimlerinin uyuşmazlığı sonucu sorunlarla karşılaşmaktadır.
+`merge` yazılımı, sistemler arası paket yöneticisi komut farklarını ortadan kaldırmak için geliştirilmiştir.
 
-GENE; paket yöneticilerindeki belirsizlikleri, yeni bir standart oluşturmadan tek boyuta indirgeyerek ortadan kaldırmayı
-amaçlamaktadır.
+İşletim sisteminizdeki bütün paketleri güncellemek için kullandığınız yazılıma göre değişen onlarca komut var.
 
-Örneğin [cURL]() kütüphanesi; kullandığınız paket yöneticisine
-göre `curl-devel`, `libcurl`, `curl-dev`, `libcurl-devel`, `curl` gibi pek çok isim almaktadır.
+Figür I'deki tabloda popüler paket yöneticilerinin basit eylemler için kullandıkları komutlar arasındaki farklılıklara örnekler verilmiştir.
 
-Aynı durum paket yöneticilerinin kullanımı için de geçerlidir. Mesela `Pacman` paket yöneticisinde paketlerinizi
-güncellemek için `pacman -Syu` komutunu kullanırken `APT` paket yöneticisinde `apt upgrade` komutunu kullanırsınız.
-(admin yetkileri dahil edilmemiştir)
-
-GENE yazılımcıların günlük işlerinde sık karşılaştıkları bu tarz sıkınıntıların önüne geçmeyi hedeflemektedir.
-
-Ancak paket yöneticilerinin komutlarını standartlaştırmak, yeni bir standart ortaya koyarak amacına ulaşamama riski
-barındırdığından GENE yeni bir paketleme sistemi oluşturarak bilgi kargaşası oluşturmak yerine var olan standartları
-anlamlandırarak geniş kitlelere hitap etmeye odaklıdır.
-
-Figürde verildiği gibi GENE, bütün işletim sistemlerinin paket yöneticilerinin komutlarını anlayıp sizin sisteminize
-uyarlar. Bu sayede yeni bir döküman okumanıza gerek kalmadan istediğiniz paket yöneticisini kullanabilirsiniz
-
-```text
-                                              .-------------.
-                                              |    GENE     |
-                                              '------.------'
-                                                     |
-       .---------------------+-----------------------+------------------------+------------------------.
-.------^------.       .------^------.       .--------^---------.       .------^-------.        .-------^-------.
-| apt upgrade |       | pacman -Syu |       | scoop update "*" |       | brew upgrade |        |      ...      |
-'-------------'       '-------------'       '------------------'       '--------------'        .---------------.
-|   UBUNTU    |       |  Archlinux  |       |      WINDOWS     |       |    MAC OS    |        |      ...      |
-'-------------'       '-------------'       '------------------'       '--------------'        '---------------'
-```
-
-Aşağıdaki tabloda popüler paket yöneticilerinin basit eylemler için kullandıkları komutlar arasındaki farklılıklara örnekler verilmiştir.
-
+> Figür I
 | Paket Yöneticisi | İndirme Komutu           | Güncelleme Komutu          | Sorgulama Komutu          | Silme Komutu               |
 |:-----------------|:-------------------------|:---------------------------|:--------------------------|:---------------------------|
 | `APT`            | `apt install <paket>`    | `apt upgrade <paket>`      | `apt search <paket>`      | `apt remove <paket>`       |
@@ -54,32 +23,19 @@ Aşağıdaki tabloda popüler paket yöneticilerinin basit eylemler için kullan
 | `Scoop`          | `scoop install <paket>`  | `scoop update <paket>`     | `scoop search <paket>`    | `scoop uninstall <paket>`  |
 | `Yum`            | `yum install <paket>`    | `yum update <paket>`       | `yum search <paket>`      | `yum remove <paket>`       |
 | `Dnf`            | `dnf install <paket>`    | `dnf update <paket>`       | `dnf search <paket>`      | `dnf remove <paket>`       |
-| `Zypper`	        | `zypper install <paket>` | `zypper update <paket>`    | `zypper search <paket>`   | `zypper remove <paket>`    |
+| `Zypper`         | `zypper install <paket>` | `zypper update <paket>`    | `zypper search <paket>`   | `zypper remove <paket>`    |
 | `APK`            | `apk add <paket>`        | `apk upgrade <paket>`      | `apk search <paket>`      | `apk del <paket>`          |
 | `Xbps`           | `xbps-install <paket>`   | `xbps-install -Su <paket>` | `xbps-query -Rs <paket>`  | `xbps-remove <paket>`      |
 | `RPM`            | `rpm -i <paket>`         | `rpm -U <paket>`           | `rpm -qf <paket>`         | `rpm -e <paket>`           |
 | `Portage`        | `emerge <paket>`         | `emerge --update <paket>`  | `emerge --search <paket>` | `emerge --unmerge <paket>` | [//]: # (Validate)
 
-```text
-  .----------.                        
-  | curl-dev |------.
-  '----------'      |       
-  .-------------.   |     
-  | libcurl-dev |---+                    
-  '-------------'   |                                  .---------.  .-----------------.
-  .---------------. |                               .--| WINDOWS | | scoop, chocolatey |
-  | libcurl-devel |-+                               |  '---------'  '-----------------'
-  '---------------' |          .-------------.      |  .---------.  .------------------------------------------.
-  .------------.    +----------|    GENE     |------+--|  LINUX  | | pacman, apt, yum, portage, xbps, nix, ...  | 
-  | curl-devel |----+          '-------------'      |  '---------'  '------------------------------------------'
-  '------------'    |                               |  .---------.  .------------------.
-  .------.          |                               '--|  MACOS  | | homebrew, macports |
-  | curl |----------+                                  '---------'  '------------------'
-  '------'          |   
-  .---------.       | 
-  | libcurl |-------'
-  '---------'      
-```                                     
+Figür I'de ufak bir kısmı verilen paket yönetici komutları sistemden sisteme göre farklılık göstermektedir.
+Bu farklılıklar bir yazılımın kurulumunu yaparken ya da sanal makine ya da işletim sistemi değiştirirken sorun çıkartmaktadır.
+
+Örneğin kullanıcı bir programın gerektirdiği kütüphaneleri kurmak için komut satırına gireceği kodlar, kuracağı programın dökümanlarında yer almayabilir.
+Bu durumda kullanıcının kullandığı paket yöneticisinin dökümanlarını araştırması gibi zaman alıcı durumlar ile karşılaşabilir.
+
+`merge`, sistemler arasındaki komutları tek bir çatı altında toplayarak bu farklılıkları ortadan kaldırmayı amaçlamaktadır.
 
 ## Kaynaklar
 
