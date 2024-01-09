@@ -296,240 +296,147 @@
 //! ### `pacman -Syu gpm`
 //! Update package list, upgrade all packages, and then install gpm if it wasn’t already installed.
 
-use gene_utils::args::GeneArgs;
-use crate::pm::PackageManager;
-use std::str::FromStr;
-use gene_proc::Name;
-use crate::error::OptError;
-use crate::raw_args::RawArgs;
+use crate::mir::GeneMIRActions;
 
-impl<'a> TryFrom<&'a GeneArgs> for Pacman<'a> {
-	type Error = OptError<'a>;
-
-	fn try_from(args: &'a GeneArgs) -> Result<Self, Self::Error> {
-		if args.backends.is_none() {
-			return Err(OptError::NoPackageManager);
-		}
-
-		// if the machine doesn't have pacman installed specifically
-		if !args.backends.as_ref().unwrap().contains(&Pacman::name().to_string()) {
-			return Err(OptError::InvalidPackageManager {
-				expected: Pacman::name(),
-				found: args.backends.as_ref().unwrap(),
-			});
-		}
-
-		let mut opts = PacmanOpts::new(&args.packages);
-
-
-		opts.packages = args.packages.as_ref();
-		opts.sync = args.install; // TODO: validate syncing vs installing
-		opts.remove = args.remove;
-		opts.update = args.upgrade;
-
-
-		Ok(
-			Pacman {
-				opts,
-				raw_opts: Some(RawArgs::from(&args.raw_args)),
-			}
-		)
-	}
-}
-
-#[derive(Debug, Name)]
+#[derive(Debug, Default)]
 pub struct Pacman<'a> {
-	/// Options to get translated from gene representation then passed to pacman
-	opts: PacmanOpts<'a>, // maybe ref instead?
+    /// Options to get translated from gene representation then passed to pacman
+    actions: Vec<PacmanActions>, // No need for option here cuz lists can just be empty
 
-	/// Raw options to pass to pacman
-	raw_opts: Option<RawArgs<'a>>, // TODO: find some way to ref this
-}
-
-impl<'a> PackageManager<'a> for Pacman<'a> {
-	fn compile(&self) -> String {
-		let mut cmd = String::from(&self.opts);
-		if let Some(raw_opts) = &self.raw_opts {
-			cmd.push_str(&raw_opts.to_string());
-		}
-		cmd
-	}
+    /// Raw options to pass to pacman
+    raw_actions: Vec<&'a str>, // No need for option here cuz lists can just be empty
 }
 
 impl<'a> Pacman<'a> {
-	// TODO: improvise
-	pub fn new(opts: PacmanOpts<'a>, raw_opts: Option<RawArgs<'a>>) -> Self {
-		Self {
-			opts,
-			raw_opts,
-		}
-	}
+    pub fn new() -> Self {
+        Default::default()
+    }
+
+    pub fn actions(mut self, actions: &[PacmanActions]) -> Self {
+        self.actions.extend(actions);
+        self
+    }
+
+    pub fn raw_actions(mut self, raw_actions: &[&'a str]) -> Self {
+        self.raw_actions.extend(raw_actions);
+        self
+    }
 }
 
-/// Options struct to pass to [`Pacman`]
-///
-/// # Examples
-///
-/// ```
-/// # use gene_pmm::spm::pacman::PacmanOpts;
-/// # fn main() {
-/// let mut opts = PacmanOpts::new();
-/// opts.sync = true;
-/// # }
-/// ```
-#[derive(Debug)]
-pub struct PacmanOpts<'a> {
-	/// Package name(s) for action
-	pub packages: &'a Vec<String>,
-
-	/// Sync packages
-	pub sync: bool,
-
-	/// Remove packages
-	pub remove: bool,
-
-	/// Update packages
-	pub update: bool,
+#[derive(Debug, Copy, Clone)]
+pub enum PacmanActions {
+    Install,
+    Remove,
+    Query,
+    Update,
 }
 
-/// Convert Self into cmd
-impl<'a> From<&PacmanOpts<'a>> for String {
-	fn from(opts: &PacmanOpts) -> Self {
-		let mut cmd = String::new();
-		if opts.sync {
-			cmd.push_str("-S ");
-		}
-		if opts.remove {
-			cmd.push_str("-R ");
-		}
-		if opts.update {
-			cmd.push_str("-S ");
-		}
-		cmd
-	}
+#[rustfmt::skip]
+impl From<GeneMIRActions> for PacmanActions {
+    fn from(value: GeneMIRActions) -> Self {
+        match value {
+            GeneMIRActions::Install => PacmanActions::Install,
+            GeneMIRActions::Remove  => PacmanActions::Remove,
+            GeneMIRActions::Query   => PacmanActions::Query,
+            GeneMIRActions::Update  => PacmanActions::Update,
+        }
+    }
 }
 
-impl<'a> PacmanOpts<'a> {
-	// TODO: impl Default::default()
-	pub fn new(packages: &'a Vec<String>) -> Self {
-		Self {
-			packages,
-			sync: false,
-			remove: false,
-			update: false,
-		}
-	}
-
-	pub fn sync(mut self) -> Self {
-		self.sync = true;
-		self
-	}
-
-	pub fn remove(mut self) -> Self {
-		self.remove = true;
-		self
-	}
-
-	pub fn update(mut self) -> Self {
-		self.update = true;
-		self
-	}
-}
-
-/******************************
-	ADVANCED OPTIONS: TODO
-******************************/
+/***********************************************
+|   ADVANCED OPTIONS: TODO                     |
+|   NOTE: bool structs? change em into enums   |
+***********************************************/
 
 /// Applies to -Q
 struct QueryOpts {
-	changelog: bool,
-	deps: bool,
-	explicit: bool,
-	groups: bool,
-	info: bool,
-	check: bool,
-	list: bool,
-	owns: Vec<String>,
-	file: bool,
-	quiet: bool,
-	search: String,
-	unrequired: bool,
-	upgrades: bool,
+    changelog: bool,
+    deps: bool,
+    explicit: bool,
+    groups: bool,
+    info: bool,
+    check: bool,
+    list: bool,
+    owns: Vec<String>,
+    file: bool,
+    quiet: bool,
+    search: String,
+    unrequired: bool,
+    upgrades: bool,
 }
 
 /// Applies to -R
 struct RemoveOpts {
-	nodeps: bool,
-	assume_installed: Vec<String>,
-	dbonly: bool,
-	noprogressbar: bool,
-	noscriptlet: bool,
-	print: bool,
-	print_format: String,
-	cascade: bool,
-	nosave: bool,
-	recursive: bool,
-	unneeded: bool,
+    nodeps: bool,
+    assume_installed: Vec<String>,
+    dbonly: bool,
+    noprogressbar: bool,
+    noscriptlet: bool,
+    print: bool,
+    print_format: String,
+    cascade: bool,
+    nosave: bool,
+    recursive: bool,
+    unneeded: bool,
 }
 
 /// Applies to -S
 struct SyncOpts {
-	downloadonly: bool,
-	asdeps: bool,
-	asexplicit: bool,
-	ignore: Vec<String>,
-	ignoregroup: Vec<String>,
-	needed: bool,
-	overwrite: Vec<String>,
-	nodeps: bool,
-	assume_installed: Vec<String>,
-	dbonly: bool,
-	noprogressbar: bool,
-	noscriptlet: bool,
-	print: bool,
-	print_format: String,
-	clean: bool,
-	groups: bool,
-	info: bool,
-	list: bool,
-	quiet: bool,
-	search: String,
-	sysupgrade: bool,
-	refresh: bool,
+    downloadonly: bool,
+    asdeps: bool,
+    asexplicit: bool,
+    ignore: Vec<String>,
+    ignoregroup: Vec<String>,
+    needed: bool,
+    overwrite: Vec<String>,
+    nodeps: bool,
+    assume_installed: Vec<String>,
+    dbonly: bool,
+    noprogressbar: bool,
+    noscriptlet: bool,
+    print: bool,
+    print_format: String,
+    clean: bool,
+    groups: bool,
+    info: bool,
+    list: bool,
+    quiet: bool,
+    search: String,
+    sysupgrade: bool,
+    refresh: bool,
 }
 
 /// Applies to -D
 struct DatabaseOpts {
-	asdeps: Vec<String>,
-	asexplicit: Vec<String>,
-	check: bool,
-	quiet: bool,
+    asdeps: Vec<String>,
+    asexplicit: Vec<String>,
+    check: bool,
+    quiet: bool,
 }
 
 /// Applies to -F
 struct FileOpts {
-	refresh: bool,
-	list: bool,
-	regex: bool,
-	quiet: bool,
-	machinereadable: bool,
+    refresh: bool,
+    list: bool,
+    regex: bool,
+    quiet: bool,
+    machinereadable: bool,
 }
 
 /// Applies to -U
 struct UpgradeOpts {
-	downloadonly: bool,
-	asdeps: bool,
-	asexplicit: bool,
-	ignore: Vec<String>,
-	ignoregroup: Vec<String>,
-	needed: bool,
-	overwrite: Vec<String>,
-	nodeps: bool,
-	assume_installed: Vec<String>,
-	dbonly: bool,
-	noprogressbar: bool,
-	noscriptlet: bool,
-	print: bool,
-	print_format: String,
+    downloadonly: bool,
+    asdeps: bool,
+    asexplicit: bool,
+    ignore: Vec<String>,
+    ignoregroup: Vec<String>,
+    needed: bool,
+    overwrite: Vec<String>,
+    nodeps: bool,
+    assume_installed: Vec<String>,
+    dbonly: bool,
+    noprogressbar: bool,
+    noscriptlet: bool,
+    print: bool,
+    print_format: String,
 }
-
