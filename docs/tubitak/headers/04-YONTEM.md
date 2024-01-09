@@ -153,6 +153,19 @@ merge nix shell dwm
 yukarıda verilmiş olan bütün komutlar bütün sistemlerde çalışacaktır çünkü GENE, bu komut sistemlerinin hepsini
 anlamlandırıp kullandığınız işletim sisteminin komutlarına çevirebilecektir.
 
+## MgMIR
+
+`merge`'in en inovatif yönlerinden birisi olan `MgMIR` kendisine benzeyen sistemlerden ayrıldığı noktalardan birisidir.
+`merge`'in ileriye dönük geliştirilmesi kolay olması adına konfigürasyon dosyalarını minimum hacimde tutmaya çalıştık.
+
+Veritabanı kullanımı açısından `merge` emülatörü, `mew` projesini andırmaktadır. `merge`, aşağıda belirtildiği üzere `mew`'in
+eksik yanlarından ders alıp onları geliştirmiştir.
+
+### Minimal konfigürasyon hacimleri
+
+LLVM derleyici altyapı sistemi ve JVM Byte Code gibi tasarım şekillerinden esinlenerek `merge`, konfigürasyonu minimumda tutmak adına
+kendi MIR'ini geliştirdik. MgMIR adını verdiğimiz bu basit MIR, son kullanıcının `merge`'e eklemeler yapmasını kolaylaştırmaktadır.
+
 ## MgPMS (Merge Package Manager Search)
 
 > Merge Paket arama aracı
@@ -166,6 +179,15 @@ Bu verilere ulaşmak için geliştirdiğimiz `MgPMS` modülü, sisteminizdeki pa
 > Merge Komut Satırı Arayüzü
 
 Rust'ın güçlü presedürel makro sistemini kullanan `clap` kütüphanesini baz alan `MgCLI` sayesinde `merge`'in kullanımı daha pratik hale getirilmiştir.
+
+## MgDB (Merge Database)
+
+> Merge Veri tabanı
+
+`merge`, kendisine verdiğiniz komutları anlamlandırabilmek için MgDB adını verdiğim bir hafıza birimi kullanır.
+Bu hafıza birimi varsayılan şekilde sistem konfigürasyon dosyası olarak `$XDG_CONFIG_HOME` sistem değişkeninde bulunur.
+
+Böylece `merge`'i gerçek zamanlı konfigüre edebilir ve istediğiniz mantıksal terimleri `MgMIR` kullanarak tanımlayabilirsiniz.
 
 # Ekler
 
