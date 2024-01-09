@@ -3,6 +3,8 @@
 > Araştırma yönteminin, veri toplama araçlarının, deney ve gözlem düzeneklerinin ve verilerin analiz yönteminin
 > verildiği bölümdür.
 
+## Kullanılan Araçlar
+
 `merge` emülatörünü geliştirmek için Rust programlama dilini kullandık. Rust'ı tercih etmemizin arkasındaki sebepler
 aşağıda listelenmiştir.
 
@@ -73,13 +75,13 @@ resmi anlamda sunarak rust programlarının eski derleyiciler ile kullanılabile
 
 Bu sayede GENE, eski veya yeni versiyon rust derleyicilerini deskteklemektedir.
 
-## Git Versiyon Kontrol Sistemi (VCS - Version Control System)
+### Git Versiyon Kontrol Sistemi (VCS - Version Control System)
 
-GENE projesinin mekandan bağımsız ve eş zamanlı geliştirilebilmesi için bir organizasyon sistemine ihtiyaç duyduk.
+Merge projesinin mekandan bağımsız ve eş zamanlı geliştirilebilmesi için bir organizasyon sistemine ihtiyaç duyduk.
 Projeyi geliştirirken, sürdürülebilirlik (maintenance), geliştirme, test, dağıtım gibi pek çok aşamada işimizi
 kolaylaştırması adına endüstriyel standartlardan birisi olan Git Versiyon Kontrol sistemini kullandık.
 
-## Github
+### Github
 
 Sıkıntı takipçisi (issue tracker), kod incelemesi (code review), özellik istekleri (feature request), wiki gibi
 geniş çaplı projeler için gerekli olan yapıları oluşturacak ve Git ile entegre çalışacak bir barındırma servisi
@@ -87,7 +89,7 @@ geniş çaplı projeler için gerekli olan yapıları oluşturacak ve Git ile en
 
 Bu sayede GENE'yi geliştirmek ve kullanıcıların karşılaştıkları problemleri çözmek kolaylaşmıştır.
 
-## JetBrains IDE, VSCode, Helix ve Vimacs
+### JetBrains IDE, VSCode, Helix ve Vimacs
 
 `merge`, IDE ve editör sektöründe profesyonel yazılımcıların önerdiği JetBrains temelli RustRover, CLion IDE'leri,
 Neovim kod editörü, Rust ile yazılmış Helix terminal editörü ve Microsoft tarafından geliştirilen VSCode uygulaması kullanılarak geliştirilmiştir.
@@ -98,7 +100,7 @@ ileri düzeyde etkili araç entegrasyonları (Git, GitHub, DB, JetBrains AI, Git
 tasarımı (GUI), kod üretimi (codegen) ve düzenleme (refactoring) araçları ile konfigüre edip GENE projesini geliştirmek
 için kullandık.
 
-3 farklı editörü aynı proje için kullanmamızın sebebi her bir editörün kendine özgü güçlü yanları olmasıdır.
+4 farklı editörü aynı proje için kullanmamızın sebebi her bir editörün kendine özgü güçlü yanları olmasıdır.
 
 Ana geliştirici makinesi Linux NixOS dağıtımı çalıştırdığından JetBrains IDE'leri kusurlu
 çalışmaktadır. [Read-Only File System & absolute paths for dependencies etc.]
@@ -120,83 +122,50 @@ Konfigurasyon dosyaları için bkz. Ek 2:
     - Nix ile yazılmış dekleratif konfigürasyon: TODO: link dotnix ft
 - bütün configurasyon dosyaları için: TODO: link em all
 
-# GENE
+## Merge Algoritmaları
 
-GENE, geliştirilmeye açık olarak tasarlanmak istenildiğinden temel programlama prensiplerine uygun olarak temiz bir kod
-tabanı (code base) ile geliştirilmesi planlanmıştır. Bunun için Endişelerin ayrılması ile (Separation of Concerns) doğru
-miktarda uyum ve bağlantı (cohesion & coupling) gibi pek çok programlama prensibi göz önünde bulundurularak
+Merge, geliştirilmeye açık olarak tasarlanmak istenildiğinden temel programlama prensiplerine uygun olarak temiz bir kod
+tabanı üzerine geliştirilmesi planlanmıştır. Bunun için Endişelerin ayrılması ile doğru
+miktarda uyum ve bağlantı gibi pek çok programlama prensibi göz önünde bulundurularak
 tasarlanmıştır.
 
 Geliştirilmesi için bir çok rust kütüphanesinden yararlanılmıştır. (bkz. Cargo.toml's : TODO)
 
-GENE üzerinde yapılabilecek güncellemeler göz önünde bulundurlarak kolay yenilenebilir ve modüler biçimde
-tasarlanmıştır. Aşağıda GENE'nin kullandığı modüller ve açıklamaları listelenmiştir.
+## MgTWIN
 
-## GPacR
+> Merge çift yönlü tercüme (GENE Two-Way InterpretatioN)
 
-> Pronounced as "Gee-Packer"
-
-> GENE Paket Kayıt Sistemi
-
-GENE'nin pek çok kayıt sistemini anlayabilmesi için geliştirilen GPacR, gerekli sistemler arası bilgileri arşivlemek
-için kullanılır. Etkin ve tasarruflu olarak tasarladığımız algoritmalar yardımı ile pek çok paket kayıt sistemini
-GENE'nin anlayacağı biçime çevirir. Böylece GENE, kullanıcı tarafından indirilmek istenen paketi çok daha tasarruflu
-şekilde indirebilir.
-
-Figür N de GPacR'ın algoritma şeması verilmiştir.
-
-![img_1.png](..%2Fdata%2Ffigures%2Fimg_1.png)
-
-> NOTE: Add more notes upon the topic here +algorithm_schema +performance_schema
-
-## GTWIN
-
-> Pronounced as "Gee-Twin"
-
-> GENE çift yönlü tercüme (GENE Two-Way InterpretatioN)
-
-GENE programının yeni bir standart oluşturmadan diğer standartları anlaması için geliştirilmiş olan çift yönlü tercüman
+Merge programının yeni bir standart oluşturmadan diğer standartları anlaması için geliştirilmiş olan çift yönlü tercüman
 modülüdür. Bu modül, Paket Yöneticilerinin eymleri için belirlediği komutları anlamlandırarak diğer paket
-yöneticilerinin
-komutlarına çevirmek için geliştirilmiştir.
+yöneticilerinin komutlarına çevirmek için geliştirilmiştir.
 
 Örneğin DWM linux pencere yöneticisini indirmek isteyen bir kullanıcı aşağıdaki komutlardan herhangi birini
 kullanabilir.
 
 ```shell
-gene apt install dwm
-gene pacman -S dwm
-gene emerge -i dwm
-gene xbps-install dwm
-gene pkg install dwm
-gene install dwm
+merge apt install dwm
+merge pacman -S dwm
+merge emerge --install dwm
+merge nix shell dwm
+...
 ```
 
 yukarıda verilmiş olan bütün komutlar bütün sistemlerde çalışacaktır çünkü GENE, bu komut sistemlerinin hepsini
 anlamlandırıp kullandığınız işletim sisteminin komutlarına çevirebilecektir.
 
-## GPmGet
+## MgPMS (Merge Package Manager Search)
 
-> GENE Paket Yükleme Aracı
+> Merge Paket arama aracı
 
-Her paket her kayıt sisteminde yer almadığından dolayı kimi paketleri sisteminize indiremeyebilirsiniz. Böyle bir
-durumda GPmGet, GENE'nin paket kayıt sistemine dahil olmayan paketleri altyapı olarak başka bir yönetici kullanmanıza
-olanak sağlar.
+`merge`'in yazdığınız komutları çalıştırabilmesi için sisteminiz hakkında bilgi edinmesi gerekir.
+Bu verilere ulaşmak için geliştirdiğimiz `MgPMS` modülü, sisteminizdeki paket yöneticilerini güvenli bir şekilde
+`merge`'e aktarır.
 
-## GonfiG
+## MgCLI (Merge Commandline Interface)
 
-> GENE Konfigürasyon Menajeri
+> Merge Komut Satırı Arayüzü
 
-GENE programının konfigürasyonlarını yönetmek için geliştirilmiş olan modüldür. GonfiG, GENE'nin konfigürasyon
-verilerini sistemler arası (cross platform) kusursuz çalışacak şekilde yönetir.
-
-## GPluG
-
-> GENE Eklenti Yöneticisi
-
-GENE programının eklentilerini yönetmek için geliştirilmiş olan modüldür. GPluG, GENE'nin eklentilerini indirme,
-kaldırma, güncelleme gibi işlemlerin yanı sıra eklentilerin GENE'ye entegre olmasını ve belirli altyapıların GENE ile
-senkronizasyonunu sağlar.
+Rust'ın güçlü presedürel makro sistemini kullanan `clap` kütüphanesini baz alan `MgCLI` sayesinde `merge`'in kullanımı daha pratik hale getirilmiştir.
 
 # Ekler
 
